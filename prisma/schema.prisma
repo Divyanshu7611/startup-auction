@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client"
   output   = "../src/generated/prisma"
@@ -11,4 +5,46 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+}
+
+model prisma_init {
+  id         Int      @id @default(dbgenerated("nextval('_prisma_init_id_seq'::regclass)"))
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+
+  @@map("_prisma_init")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model payments {
+  payment_id         BigInt              @id @default(autoincrement())
+  team_id            BigInt
+  amount             Decimal             @db.Decimal(10, 2)
+  order_id           String              @db.VarChar(255)
+  gateway_payment_id String?             @db.VarChar(255)
+  status             payment_status_enum @default(PENDING)
+  created_at         DateTime            @default(now()) @db.Timestamp(6)
+  teams              teams               @relation(fields: [team_id], references: [team_id], onDelete: Cascade, onUpdate: NoAction, map: "fk_team")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model teams {
+  team_id               BigInt     @id @default(autoincrement())
+  captain_name          String     @db.VarChar(150)
+  captain_email         String     @unique @db.VarChar(255)
+  password_hash         String
+  team_name             String     @unique @db.VarChar(150)
+  contact_number        String     @db.VarChar(20)
+  team_members          Json?
+  wallet                Decimal    @default(0) @db.Decimal(12, 2)
+  reserved_amount       Decimal    @default(0) @db.Decimal(12, 2)
+  final_portfolio_value Decimal    @default(0) @db.Decimal(14, 2)
+  payment_status        Boolean    @default(false)
+  created_at            DateTime   @default(now()) @db.Timestamp(6)
+  payments              payments[]
+}
+
+enum payment_status_enum {
+  PENDING
+  SUCCESS
+  FAILED
 }
