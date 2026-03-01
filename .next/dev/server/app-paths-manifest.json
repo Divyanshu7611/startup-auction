@@ -1,7 +1,0 @@
-{
-  "/api/teams/loginTeam/route": "app/api/teams/loginTeam/route.js",
-  "/api/teams/registration/route": "app/api/teams/registration/route.js",
-  "/page": "app/page.js",
-  "/payment/page": "app/payment/page.js",
-  "/register/page": "app/register/page.js"
-}
