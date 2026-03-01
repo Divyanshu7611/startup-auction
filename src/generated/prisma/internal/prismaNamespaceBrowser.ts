@@ -51,7 +51,9 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
-
+  prisma_init: 'prisma_init',
+  payments: 'payments',
+  teams: 'teams'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -68,4 +70,84 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 } as const)
 
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
+
+
+export const Prisma_initScalarFieldEnum = {
+  id: 'id',
+  created_at: 'created_at'
+} as const
+
+export type Prisma_initScalarFieldEnum = (typeof Prisma_initScalarFieldEnum)[keyof typeof Prisma_initScalarFieldEnum]
+
+
+export const PaymentsScalarFieldEnum = {
+  payment_id: 'payment_id',
+  team_id: 'team_id',
+  amount: 'amount',
+  order_id: 'order_id',
+  gateway_payment_id: 'gateway_payment_id',
+  status: 'status',
+  created_at: 'created_at'
+} as const
+
+export type PaymentsScalarFieldEnum = (typeof PaymentsScalarFieldEnum)[keyof typeof PaymentsScalarFieldEnum]
+
+
+export const TeamsScalarFieldEnum = {
+  team_id: 'team_id',
+  captain_name: 'captain_name',
+  captain_email: 'captain_email',
+  password_hash: 'password_hash',
+  team_name: 'team_name',
+  contact_number: 'contact_number',
+  team_members: 'team_members',
+  wallet: 'wallet',
+  reserved_amount: 'reserved_amount',
+  final_portfolio_value: 'final_portfolio_value',
+  payment_status: 'payment_status',
+  created_at: 'created_at'
+} as const
+
+export type TeamsScalarFieldEnum = (typeof TeamsScalarFieldEnum)[keyof typeof TeamsScalarFieldEnum]
+
+
+export const SortOrder = {
+  asc: 'asc',
+  desc: 'desc'
+} as const
+
+export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+export const NullableJsonNullValueInput = {
+  DbNull: DbNull,
+  JsonNull: JsonNull
+} as const
+
+export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
+export const QueryMode = {
+  default: 'default',
+  insensitive: 'insensitive'
+} as const
+
+export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+export const NullsOrder = {
+  first: 'first',
+  last: 'last'
+} as const
+
+export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
