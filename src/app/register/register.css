@@ -517,6 +517,55 @@ input:disabled {
   }
 }
 
+/* ===== AUTH CHOICE (Login / Register) ===== */
+.auth-choice-container {
+  text-align: center;
+}
+
+.auth-choice-prompt {
+  font-size: 15px;
+  color: var(--ink-soft);
+  margin: 0 0 32px;
+  line-height: 1.5;
+}
+
+.auth-choice-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+.choice-btn {
+  width: 100%;
+  padding: 16px 24px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  background: linear-gradient(135deg, var(--gold) 0%, #b07d28 100%);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  box-shadow: var(--shadow-input);
+}
+
+.choice-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-btn);
+}
+
+.choice-btn.violet {
+  background: linear-gradient(135deg, var(--violet) 0%, #2d2480 100%);
+}
+
+.choice-btn.violet:hover {
+  box-shadow: var(--shadow-btn-v);
+}
+
 /* ===== FOCUS VISIBLE (accessibility) ===== */
 :focus-visible {
   outline: 2px solid var(--gold);

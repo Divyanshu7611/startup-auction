@@ -1,14 +1,47 @@
-[00:00:36.228] Server  LOG     ✓ Ready in 31.7s
-[00:00:39.318] Server  LOG     ○ Compiling /register ...
-[00:01:08.891] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:05:20.074] Server  LOG     ○ Compiling /api/teams/registration ...
-[00:05:30.236] Server  ERROR   ⨯ Error: DATABASE_URL environment variable is not set
-[00:05:33.252] Server  LOG     ○ Compiling /_error ...
-[00:19:21.413] Server  LOG     ✓ Compiled in 51.6s
-[00:20:24.694] Server  LOG     ✓ Compiled in 9.2s
-[00:26:47.021] Server  LOG     ✓ Compiled in 39.1s
-[00:29:52.560] Server  LOG     ✓ Compiled in 843ms
-[00:32:39.695] Server  LOG     ✓ Compiled in 750ms
-[00:32:41.207] Server  LOG     ✓ Compiled in 911ms
-[00:34:48.355] Server  LOG     ✓ Compiled in 19.1s
-[00:34:49.291] Browser ERROR   Invalid DOM property `%s`. Did you mean `%s`? class className
+[00:00:00.540] Server  LOG     ✓ Ready in 362ms
+[00:00:01.556] Server  ERROR   Invalid DOM property `class`. Did you mean `className`?
+[00:00:01.851] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:01.851] Browser ERROR   Invalid DOM property `%s`. Did you mean `%s`? class className
+[00:00:02.054] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:02.099] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:02.108] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:02.678] Browser WARN    Image with src "http://localhost:3000/vercel.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:00:02.678] Browser WARN    Image with src "http://localhost:3000/vercel.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:00:02.678] Browser WARN    Image with src "http://localhost:3000/vercel.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:00:51.115] Server  ERROR   (node:12470) Warning: SECURITY WARNING: The SSL modes 'prefer', 'require', and 'verify-ca' are treated as aliases for 'verify-full'.
+In the next major version (pg-connection-string v3.0.0 and pg v9.0.0), these modes will adopt standard libpq semantics, which have weaker security guarantees.
+
+To prepare for this change:
+- If you want the current behavior, explicitly use 'sslmode=verify-full'
+- If you want libpq compatibility now, use 'uselibpqcompat=true&sslmode=require'
+
+See https://www.postgresql.org/docs/current/libpq-ssl.html for libpq SSL mode definitions.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[00:00:57.323] Server  ERROR   Registration email failed: Error: Missing SMTP configuration. Set SMTP_HOST, SMTP_USER, and SMTP_PASS.
+[00:02:09.791] Browser ERROR   uncaughtError: TypeError: window.Razorpay is not a constructor
+[00:02:24.286] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:03:41.509] Server  LOG     ✓ Compiled in 102ms
+[00:03:46.360] Server  LOG     ✓ Compiled in 108ms
+[00:03:53.134] Server  LOG     ✓ Compiled in 97ms
+[00:03:54.230] Server  LOG     ✓ Compiled in 80ms
+[00:04:01.166] Server  LOG     ✓ Compiled in 70ms
+[00:05:37.654] Server  LOG       Reload env: .env
+[00:06:18.276] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:06:19.236] Browser ERROR   Invalid DOM property `%s`. Did you mean `%s`? class className
+[00:10:09.401] Server  LOG       Reload env: .env
+[00:10:11.977] Server  LOG       Reload env: .env
+[00:10:21.638] Server  LOG       Reload env: .env
+[00:10:24.413] Server  LOG       Reload env: .env
+[00:10:42.352] Server  LOG       Reload env: .env
+[00:10:46.213] Server  LOG       Reload env: .env
+[00:11:12.259] Server  LOG       Reload env: .env
+[00:15:14.818] Server  LOG     ✓ Compiled in 41ms
+[00:15:25.128] Server  LOG     ✓ Compiled in 66ms
+[00:16:01.981] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:16:06.000] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:16:06.135] Browser WARN    Image with src "http://localhost:3000/vercel.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:16:18.329] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:16:19.289] Browser WARN    Image with src "http://localhost:3000/vercel.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:17:22.065] Server  LOG     ✓ Compiled in 0ms
+[00:17:37.980] Server  LOG     ✓ Compiled in 68ms
+[00:22:30.222] Server  LOG     ✓ Compiled in 33ms

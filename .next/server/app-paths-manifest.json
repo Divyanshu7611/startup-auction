@@ -1,9 +1,13 @@
 {
   "/_global-error/page": "app/_global-error/page.js",
   "/_not-found/page": "app/_not-found/page.js",
+  "/api/send-mail/route": "app/api/send-mail/route.js",
   "/api/teams/getTeamById/[id]/route": "app/api/teams/getTeamById/[id]/route.js",
   "/api/teams/loginTeam/route": "app/api/teams/loginTeam/route.js",
   "/api/teams/registration/route": "app/api/teams/registration/route.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/page": "app/page.js"
+  "/page": "app/page.js",
+  "/payment/page": "app/payment/page.js",
+  "/register/page": "app/register/page.js",
+  "/success/page": "app/success/page.js"
 }

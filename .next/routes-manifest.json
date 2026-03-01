@@ -50,6 +50,12 @@
       "namedRegex": "^/_not\\-found(?:/)?$"
     },
     {
+      "page": "/api/send-mail",
+      "regex": "^/api/send\\-mail(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/send\\-mail(?:/)?$"
+    },
+    {
       "page": "/api/teams/loginTeam",
       "regex": "^/api/teams/loginTeam(?:/)?$",
       "routeKeys": {},
@@ -66,6 +72,24 @@
       "regex": "^/favicon\\.ico(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/favicon\\.ico(?:/)?$"
+    },
+    {
+      "page": "/payment",
+      "regex": "^/payment(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/payment(?:/)?$"
+    },
+    {
+      "page": "/register",
+      "regex": "^/register(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/register(?:/)?$"
+    },
+    {
+      "page": "/success",
+      "regex": "^/success(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/success(?:/)?$"
     }
   ],
   "dataRoutes": [],

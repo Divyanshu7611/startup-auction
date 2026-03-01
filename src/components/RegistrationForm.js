@@ -7,7 +7,7 @@ import TeamSection from "./TeamSection";
 import TeamMembersSection from "./TeamMembersSection";
 import "../app/register/register.css";
 
-export default function RegistrationForm() {
+export default function RegistrationForm({ onBack }) {
   const router = useRouter();
 
   const [formData, setFormData] = useState({
@@ -55,12 +55,27 @@ export default function RegistrationForm() {
     setError("");
 
     try {
+      const payload = {
+        captain_name: formData.captain_name,
+        captain_email: formData.captain_email,
+        password: formData.password,
+        team_name: formData.team_name,
+        contact_number: formData.contact_number,
+        captain_roll_number: formData.captain_roll_number,
+        team_members: formData.team_members
+          .filter((m) => m.name || m.roll || m.contact)
+          .map((m) => ({
+            name: m.name,
+            contact_number: m.contact,
+            roll_number: m.roll,
+          })),
+      };
       const res = await fetch("/api/teams/registration", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(payload),
       });
 
       const data = await res.json();
@@ -81,7 +96,7 @@ export default function RegistrationForm() {
 
   return (
     <div className="form-container">
-     <h1>🚀 Startup Auction Registration <span class="highlight">Training and Placement Cell</span></h1>
+     <h1>🚀 Startup Auction Registration <span className="highlight">Training and Placement Cell</span></h1>
       <form onSubmit={handleSubmit}>
         <CaptainSection formData={formData} onChange={handleChange} />
         <TeamSection formData={formData} onChange={handleChange} />
@@ -96,6 +111,18 @@ export default function RegistrationForm() {
         <button type="submit" className="submit-btn" disabled={loading}>
           {loading ? "Registering..." : "Register Team"}
         </button>
+
+        {onBack && (
+          <button
+            type="button"
+            className="submit-btn violet"
+            style={{ marginTop: 12 }}
+            onClick={onBack}
+            disabled={loading}
+          >
+            Back
+          </button>
+        )}
       </form>
     </div>
   );

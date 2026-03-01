@@ -3,7 +3,7 @@ export default function PaymentSection({ paymentStatus, onChange }) {
     <div className="section">
       <h2>Payment</h2>
 
-      <p>Entry Fee: ₹499</p>
+      <p>Entry Fee: ₹60</p>
 
       <select
         value={paymentStatus}

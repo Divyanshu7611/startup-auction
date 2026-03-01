@@ -39,13 +39,13 @@ export default function PaymentPage() {
 
       {teamId ? (
         <>
-          <p>Team ID: {teamId}</p>
+          <p className="text-black font-bold">Team ID: {teamId}</p>
 
           <button className="submit-btn" onClick={handlePayment}>
-            Pay ₹50
+            Pay ₹60
           </button>
 
-          <div className="payment-status">
+          <div className="payment-status text-black font-bold">
             Status: <span>{paymentStatus}</span>
           </div>
         </>

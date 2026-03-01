@@ -1,6 +1,7 @@
 import bcrypt from "bcrypt";
 import { NextResponse } from "next/server";
 
+import { getRegistrationEmail } from "@/lib/emailTemplates";
 import { sendMail } from "@/lib/mailer";
 import { prisma } from "@/lib/prisma";
 
@@ -67,11 +68,16 @@ export async function POST(request) {
     });
 
     // Keep registration successful even if email delivery fails.
+    const { subject, html, text } = getRegistrationEmail({
+      captain_name,
+      team_name,
+      captain_email,
+    });
     sendMail({
       to: captain_email,
-      subject: "Team Registration Confirmed",
-      text: `Hi ${captain_name}, your team \"${team_name}\" has been registered successfully. Your payment is pending.`,
-      html: `<p>Hi ${captain_name},</p><p>Your team <strong>${team_name}</strong> has been registered successfully.</p><p>Your payment is pending.</p>`,
+      subject,
+      text,
+      html,
     }).catch((mailError) => {
       console.error("Registration email failed:", mailError);
     });
