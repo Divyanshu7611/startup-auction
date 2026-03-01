@@ -44,6 +44,10 @@
     --font-weight-medium: 500;
     --font-weight-semibold: 600;
     --tracking-tight: -.025em;
+    --radius-sm: .25rem;
+    --radius-md: .375rem;
+    --radius-lg: .5rem;
+    --radius-xl: .75rem;
     --default-transition-duration: .15s;
     --default-transition-timing-function: cubic-bezier(.4, 0, .2, 1);
     --default-font-family: var(--font-geist-sans);
@@ -53,8 +57,8 @@
   @supports (color: lab(0% 0 0)) {
     :root, :host {
       --color-zinc-50: lab(98.26% 0 0);
-      --color-zinc-400: lab(65.6464% 1.53497 -5.42429);
-      --color-zinc-600: lab(35.1166% 1.78212 -6.1173);
+      --color-zinc-400: lab(65.6464% 1.53494 -5.42429);
+      --color-zinc-600: lab(35.1166% 1.7821 -6.1173);
       --color-zinc-950: lab(2.51107% .242703 -.886115);
     }
   }

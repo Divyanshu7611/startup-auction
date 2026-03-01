@@ -1,10 +1,14 @@
-[00:00:00.501] Server  LOG     ✓ Ready in 327ms
-[00:00:04.320] Server  ERROR   (node:28511) Warning: SECURITY WARNING: The SSL modes 'prefer', 'require', and 'verify-ca' are treated as aliases for 'verify-full'.
-In the next major version (pg-connection-string v3.0.0 and pg v9.0.0), these modes will adopt standard libpq semantics, which have weaker security guarantees.
-
-To prepare for this change:
-- If you want the current behavior, explicitly use 'sslmode=verify-full'
-- If you want libpq compatibility now, use 'uselibpqcompat=true&sslmode=require'
-
-See https://www.postgresql.org/docs/current/libpq-ssl.html for libpq SSL mode definitions.
-(Use `node --trace-warnings ...` to show where the warning was created)
+[00:00:36.228] Server  LOG     ✓ Ready in 31.7s
+[00:00:39.318] Server  LOG     ○ Compiling /register ...
+[00:01:08.891] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:05:20.074] Server  LOG     ○ Compiling /api/teams/registration ...
+[00:05:30.236] Server  ERROR   ⨯ Error: DATABASE_URL environment variable is not set
+[00:05:33.252] Server  LOG     ○ Compiling /_error ...
+[00:19:21.413] Server  LOG     ✓ Compiled in 51.6s
+[00:20:24.694] Server  LOG     ✓ Compiled in 9.2s
+[00:26:47.021] Server  LOG     ✓ Compiled in 39.1s
+[00:29:52.560] Server  LOG     ✓ Compiled in 843ms
+[00:32:39.695] Server  LOG     ✓ Compiled in 750ms
+[00:32:41.207] Server  LOG     ✓ Compiled in 911ms
+[00:34:48.355] Server  LOG     ✓ Compiled in 19.1s
+[00:34:49.291] Browser ERROR   Invalid DOM property `%s`. Did you mean `%s`? class className
