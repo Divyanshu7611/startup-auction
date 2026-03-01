@@ -17,4 +17,18 @@ import * as Prisma from './internal/prismaNamespaceBrowser.ts'
 export { Prisma }
 export * as $Enums from './enums.ts'
 export * from './enums.ts';
-
+/**
+ * Model prisma_init
+ * 
+ */
+export type prisma_init = Prisma.prisma_initModel
+/**
+ * Model payments
+ * This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+ */
+export type payments = Prisma.paymentsModel
+/**
+ * Model teams
+ * This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+ */
+export type teams = Prisma.teamsModel

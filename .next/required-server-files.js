@@ -100,7 +100,7 @@ self.__SERVER_FILES_MANIFEST={
         "transform": "lodash/{{member}}"
       }
     },
-    "outputFileTracingRoot": "/media/divyanshu-linux/New Volume/startup-auction",
+    "outputFileTracingRoot": "/media/divyanshu-linux/New Volume/startup-auction/startup-auction",
     "cacheComponents": false,
     "cacheLife": {
       "default": {
@@ -294,11 +294,11 @@ self.__SERVER_FILES_MANIFEST={
     "configFileName": "next.config.mjs",
     "reactCompiler": true,
     "turbopack": {
-      "root": "/media/divyanshu-linux/New Volume/startup-auction"
+      "root": "/media/divyanshu-linux/New Volume/startup-auction/startup-auction"
     },
     "distDirRoot": ".next"
   },
-  "appDir": "/media/divyanshu-linux/New Volume/startup-auction",
+  "appDir": "/media/divyanshu-linux/New Volume/startup-auction/startup-auction",
   "relativeAppDir": "",
   "files": [
     ".next/routes-manifest.json",

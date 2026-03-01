@@ -409,6 +409,10 @@
     display: flex;
   }
 
+  .table {
+    display: table;
+  }
+
   .h-12 {
     height: calc(var(--spacing) * 12);
   }

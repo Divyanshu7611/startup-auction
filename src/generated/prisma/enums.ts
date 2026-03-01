@@ -9,7 +9,10 @@
 * 🟢 You can import this file directly.
 */
 
+export const payment_status_enum = {
+  PENDING: 'PENDING',
+  SUCCESS: 'SUCCESS',
+  FAILED: 'FAILED'
+} as const
 
-
-// This file is empty because there are no enums in the schema.
-export {}
+export type payment_status_enum = (typeof payment_status_enum)[keyof typeof payment_status_enum]

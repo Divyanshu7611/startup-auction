@@ -20,7 +20,16 @@
     "afterFiles": [],
     "fallback": []
   },
-  "dynamicRoutes": [],
+  "dynamicRoutes": [
+    {
+      "page": "/api/teams/getTeamById/[id]",
+      "regex": "^/api/teams/getTeamById/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPid": "nxtPid"
+      },
+      "namedRegex": "^/api/teams/getTeamById/(?<nxtPid>[^/]+?)(?:/)?$"
+    }
+  ],
   "staticRoutes": [
     {
       "page": "/",
@@ -39,6 +48,18 @@
       "regex": "^/_not\\-found(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/_not\\-found(?:/)?$"
+    },
+    {
+      "page": "/api/teams/loginTeam",
+      "regex": "^/api/teams/loginTeam(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/teams/loginTeam(?:/)?$"
+    },
+    {
+      "page": "/api/teams/registration",
+      "regex": "^/api/teams/registration(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/teams/registration(?:/)?$"
     },
     {
       "page": "/favicon.ico",
