@@ -9,6 +9,9 @@ out
 .turbo
 *.tsbuildinfo
 
+# Prisma generated client
+src/generated/
+
 # Environment (keep .env.sample)
 .env
 .env.local
