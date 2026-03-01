@@ -1,6 +1,8 @@
-import { prisma } from "@/lib/prisma";
-import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
+import { NextResponse } from "next/server";
+
+import { sendMail } from "@/lib/mailer";
+import { prisma } from "@/lib/prisma";
 
 export async function POST(request) {
   try {
@@ -14,7 +16,6 @@ export async function POST(request) {
       captain_roll_number,
     } = await request.json();
 
-    // Validate required fields
     if (
       !captain_name ||
       !captain_email ||
@@ -29,10 +30,10 @@ export async function POST(request) {
       );
     }
 
-    // Check existing team by email
     const existingByEmail = await prisma.teams.findUnique({
       where: { captain_email },
     });
+
     if (existingByEmail) {
       return NextResponse.json(
         { error: "Team already exists with this email" },
@@ -40,10 +41,10 @@ export async function POST(request) {
       );
     }
 
-    // Check existing team by name
     const existingByName = await prisma.teams.findUnique({
       where: { team_name },
     });
+
     if (existingByName) {
       return NextResponse.json(
         { error: "Team name is already taken" },
@@ -51,10 +52,8 @@ export async function POST(request) {
       );
     }
 
-    // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Create team
     const newTeam = await prisma.teams.create({
       data: {
         captain_name,
@@ -65,6 +64,16 @@ export async function POST(request) {
         captain_roll_number,
         team_members: team_members || [],
       },
+    });
+
+    // Keep registration successful even if email delivery fails.
+    sendMail({
+      to: captain_email,
+      subject: "Team Registration Confirmed",
+      text: `Hi ${captain_name}, your team \"${team_name}\" has been registered successfully. Your payment is pending.`,
+      html: `<p>Hi ${captain_name},</p><p>Your team <strong>${team_name}</strong> has been registered successfully.</p><p>Your payment is pending.</p>`,
+    }).catch((mailError) => {
+      console.error("Registration email failed:", mailError);
     });
 
     return NextResponse.json(
@@ -80,12 +89,21 @@ export async function POST(request) {
     if (error?.code === "P2002") {
       const target = error?.meta?.target;
       if (Array.isArray(target) && target.includes("team_name")) {
-        return NextResponse.json({ error: "Team name is already taken" }, { status: 400 });
+        return NextResponse.json(
+          { error: "Team name is already taken" },
+          { status: 400 }
+        );
       }
       if (Array.isArray(target) && target.includes("captain_email")) {
-        return NextResponse.json({ error: "Team already exists with this email" }, { status: 400 });
+        return NextResponse.json(
+          { error: "Team already exists with this email" },
+          { status: 400 }
+        );
       }
-      return NextResponse.json({ error: "A team with this value already exists" }, { status: 400 });
+      return NextResponse.json(
+        { error: "A team with this value already exists" },
+        { status: 400 }
+      );
     }
 
     return NextResponse.json(
@@ -95,18 +113,17 @@ export async function POST(request) {
   }
 }
 
-export async function GET(request) {
-    try {
-        const teams = await prisma.teams.findMany();
-        const serialized = teams.map((t) => ({
-            ...t,
-            team_id: String(t.team_id),
-        }));
-        return NextResponse.json(serialized, { status: 200 });
-    } catch (error) {
-        console.error("Error fetching teams:", error);
-        return NextResponse.json({ error: "Internal server error" }, { status: 500 });
-    }
+export async function GET() {
+  try {
+    const teams = await prisma.teams.findMany();
+    const serialized = teams.map((team) => ({
+      ...team,
+      team_id: String(team.team_id),
+    }));
+
+    return NextResponse.json(serialized, { status: 200 });
+  } catch (error) {
+    console.error("Error fetching teams:", error);
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+  }
 }
-
-
