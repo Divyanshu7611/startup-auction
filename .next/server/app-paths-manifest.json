@@ -1,7 +1,0 @@
-{
-  "/api/teams/markPaid/[id]/route": "app/api/teams/markPaid/[id]/route.js",
-  "/api/teams/getTeamById/[id]/route": "app/api/teams/getTeamById/[id]/route.js",
-  "/page": "app/page.js",
-  "/team/dashboard/page": "app/team/dashboard/page.js",
-  "/payment/page": "app/payment/page.js"
-}
