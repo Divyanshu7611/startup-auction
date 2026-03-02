@@ -28,7 +28,9 @@ export async function POST(request) {
         const teamDetails = await prisma.teams.findUnique({
             where: { captain_email: captain_email},
             select: {
+                team_id: true,
                 captain_name: true,
+                captain_email: true,
                 team_name: true,
                 contact_number: true,
                 team_members: true,
@@ -36,6 +38,7 @@ export async function POST(request) {
                 reserved_amount: true,
                 final_portfolio_value: true,
                 payment_status: true,
+                captain_roll_number: true,
                 created_at: true,
             }
         })
@@ -44,7 +47,13 @@ export async function POST(request) {
             return NextResponse.json({ error: "Team not found" }, { status: 404 });
         }
 
-        return NextResponse.json({ message: "Login successful", teamDetails }, { status: 200 });
+        return NextResponse.json({
+            message: "Login successful",
+            teamDetails: {
+                ...teamDetails,
+                team_id: String(teamDetails.team_id),
+            },
+        }, { status: 200 });
 
     }
     catch (error) {

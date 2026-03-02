@@ -78,14 +78,26 @@ export default function RegistrationForm({ onBack }) {
         body: JSON.stringify(payload),
       });
 
-      const data = await res.json();
+      const contentType = res.headers.get("content-type") || "";
+      const raw = await res.text();
+      let data = null;
+      if (contentType.includes("application/json")) {
+        try {
+          data = JSON.parse(raw);
+        } catch {
+          data = null;
+        }
+      }
 
       if (!res.ok) {
-        throw new Error(data.error || "Registration failed");
+        const fallback =
+          raw?.slice(0, 180) ||
+          `Request failed with status ${res.status}`;
+        throw new Error(data?.error || fallback || "Registration failed");
       }
 
       localStorage.setItem("teamId", data.team_id);
-      router.push("/payment");
+      router.push(`/payment?teamId=${data.team_id}`);
 
     } catch (err) {
       setError(err.message);

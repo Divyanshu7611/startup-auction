@@ -23,16 +23,40 @@ export default function LoginForm({ onBack }) {
         body: JSON.stringify({ captain_email: email, password }),
       });
 
-      const data = await res.json();
+      const contentType = res.headers.get("content-type") || "";
+      const raw = await res.text();
+      let data = null;
+      if (contentType.includes("application/json")) {
+        try {
+          data = JSON.parse(raw);
+        } catch {
+          data = null;
+        }
+      }
 
       if (!res.ok) {
-        throw new Error(data.error || "Login failed");
+        const fallback =
+          raw?.slice(0, 180) ||
+          `Request failed with status ${res.status}`;
+        throw new Error(data?.error || fallback || "Login failed");
       }
 
       if (data.teamDetails) {
         localStorage.setItem("teamDetails", JSON.stringify(data.teamDetails));
       }
-      router.push("/payment");
+
+      const teamId = data?.teamDetails?.team_id;
+      const isPaid = Boolean(data?.teamDetails?.payment_status);
+
+      if (!teamId) {
+        throw new Error("Invalid team data returned from login");
+      }
+
+      if (isPaid) {
+        router.push(`/team/dashboard?teamId=${teamId}`);
+      } else {
+        router.push(`/payment?teamId=${teamId}`);
+      }
     } catch (err) {
       setError(err.message);
     }
