@@ -1,0 +1,9 @@
+{
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/api/teams/getTeamById/[id]/route": "/api/teams/getTeamById/[id]",
+  "/api/teams/loginTeam/route": "/api/teams/loginTeam",
+  "/api/teams/registration/route": "/api/teams/registration",
+  "/favicon.ico/route": "/favicon.ico",
+  "/page": "/"
+}

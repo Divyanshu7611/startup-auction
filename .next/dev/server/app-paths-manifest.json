@@ -1,0 +1,4 @@
+{
+  "/api/teams/getTeamById/[id]/route": "app/api/teams/getTeamById/[id]/route.js",
+  "/api/teams/loginTeam/route": "app/api/teams/loginTeam/route.js"
+}
