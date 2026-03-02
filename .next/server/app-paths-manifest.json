@@ -1,9 +1,0 @@
-{
-  "/_global-error/page": "app/_global-error/page.js",
-  "/_not-found/page": "app/_not-found/page.js",
-  "/api/teams/getTeamById/[id]/route": "app/api/teams/getTeamById/[id]/route.js",
-  "/api/teams/loginTeam/route": "app/api/teams/loginTeam/route.js",
-  "/api/teams/registration/route": "app/api/teams/registration/route.js",
-  "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/page": "app/page.js"
-}
