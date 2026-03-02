@@ -1,5 +1,5 @@
 import RegisterPageContent from "@/components/RegisterPageContent";
 
-export default function Home() {
+export default function RegisterPage() {
   return <RegisterPageContent />;
 }
