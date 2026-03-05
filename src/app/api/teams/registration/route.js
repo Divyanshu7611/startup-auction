@@ -1,6 +1,11 @@
 import bcrypt from "bcrypt";
 import { NextResponse } from "next/server";
 
+import {
+  createSessionToken,
+  getSessionCookieOptions,
+  SESSION_COOKIE_NAME,
+} from "@/lib/auth";
 import { getRegistrationEmail } from "@/lib/emailTemplates";
 import { sendMail } from "@/lib/mailer";
 import { prisma } from "@/lib/prisma";
@@ -82,13 +87,25 @@ export async function POST(request) {
       console.error("Registration email failed:", mailError);
     });
 
-    return NextResponse.json(
+    const response = NextResponse.json(
       {
         message: "Team created successfully",
         team_id: String(newTeam.team_id),
       },
       { status: 201 }
     );
+
+    try {
+      const token = createSessionToken({
+        team_id: newTeam.team_id,
+        captain_email: newTeam.captain_email,
+      });
+      response.cookies.set(SESSION_COOKIE_NAME, token, getSessionCookieOptions());
+    } catch (sessionError) {
+      console.error("Session cookie not set (SESSION_SECRET missing?):", sessionError);
+    }
+
+    return response;
   } catch (error) {
     console.error("Error creating team:", error);
 

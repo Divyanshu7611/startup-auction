@@ -68,6 +68,7 @@ function PaymentPageContent() {
 
           const res = await fetch(`/api/teams/markPaid/${teamId}`, {
             method: "PATCH",
+            credentials: "include",
           });
           const data = await res.json();
           if (!res.ok) throw new Error(data?.error || "Failed to update payment status");
@@ -100,33 +101,45 @@ function PaymentPageContent() {
   };
 
   return (
-    <div className="form-container">
-      <h1>Complete Payment</h1>
+    <div className="flex min-h-screen w-full min-w-0 items-center justify-center bg-slate-50 p-4 sm:p-6">
+      <div className="form-container mx-auto w-full min-w-0 max-w-[420px] rounded-2xl bg-white px-5 py-6 shadow-lg ring-1 ring-slate-200/60 sm:max-w-[480px] sm:px-8 sm:py-8">
+        <h1 className="text-center text-xl font-semibold text-slate-900 sm:text-2xl">Complete Payment</h1>
 
-      {teamId ? (
-        <>
-          <p className="text-black font-bold">Team ID: {teamId}</p>
+        {teamId ? (
+          <>
+            <p className="mt-4 break-words text-sm font-medium text-slate-700 sm:text-base">Team ID: <span className="font-mono">{teamId}</span></p>
 
-          <button className="submit-btn" onClick={handlePayment} disabled={isPaying}>
-            {isPaying ? "Processing..." : "Pay INR 1"}
-          </button>
+            <button
+              className="submit-btn mt-6 flex min-h-[48px] w-full items-center justify-center rounded-xl border-0 bg-indigo-600 px-4 py-3 text-base font-semibold text-white shadow-lg transition hover:bg-indigo-700 disabled:opacity-60 sm:min-h-[52px]"
+              onClick={handlePayment}
+              disabled={isPaying}
+            >
+              {isPaying ? "Processing..." : "Pay INR 1"}
+            </button>
 
-          {paymentError ? <p className="text-red-600 mt-2">{paymentError}</p> : null}
+            {paymentError ? <p className="mt-3 break-words text-sm text-red-600 sm:text-base">{paymentError}</p> : null}
 
-          <div className="payment-status text-black font-bold">
-            Status: <span>{paymentStatus}</span>
-          </div>
-        </>
-      ) : (
-        <p>No Team Found</p>
-      )}
+            <div className="payment-status mt-4 text-sm font-semibold text-slate-800 sm:text-base">
+              Status: <span>{paymentStatus}</span>
+            </div>
+          </>
+        ) : (
+          <p className="mt-4 text-slate-600">No Team Found</p>
+        )}
+      </div>
     </div>
   );
 }
 
 export default function PaymentPage() {
   return (
-    <Suspense fallback={<div className="form-container"><p>Loading payment page...</p></div>}>
+    <Suspense
+      fallback={
+        <div className="flex min-h-screen w-full min-w-0 items-center justify-center px-4">
+          <p className="text-slate-600">Loading payment page...</p>
+        </div>
+      }
+    >
       <PaymentPageContent />
     </Suspense>
   );
