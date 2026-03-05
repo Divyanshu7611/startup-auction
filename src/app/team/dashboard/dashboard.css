@@ -1,0 +1,139 @@
+.dashboard-screen {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.dashboard-shell {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.dashboard-shell--blocked {
+  filter: blur(2px);
+  pointer-events: none;
+  user-select: none;
+}
+
+.dashboard-state-card {
+  max-width: 640px;
+}
+
+.dashboard-center-text {
+  text-align: center;
+  margin: 0;
+}
+
+.dashboard-header {
+  margin-bottom: 24px;
+}
+
+.dashboard-eyebrow {
+  margin: 0 0 8px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-muted);
+}
+
+.dashboard-helper {
+  margin-top: 2px;
+  margin-bottom: 0;
+}
+
+.dashboard-strong {
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.dashboard-ok {
+  color: var(--success);
+}
+
+.dashboard-warn {
+  color: #ad7a1f;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-bottom: 18px;
+}
+
+.dashboard-card {
+  margin-bottom: 0;
+  padding: 18px;
+  border: 1.5px solid var(--surface-2);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+}
+
+.dashboard-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.dashboard-stack p {
+  margin: 0;
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+
+.dashboard-list {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.dashboard-actions {
+  margin-top: 14px;
+}
+
+.dashboard-actions .submit-btn {
+  margin-top: 0;
+}
+
+.dashboard-break {
+  word-break: break-all;
+}
+
+.dashboard-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(13, 15, 26, 0.5);
+}
+
+.dashboard-modal {
+  max-width: 520px;
+}
+
+.dashboard-modal h2 {
+  margin-top: 0;
+}
+
+.dashboard-link-btn {
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+}
+
+@media (max-width: 900px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-shell {
+    max-width: 760px;
+  }
+}

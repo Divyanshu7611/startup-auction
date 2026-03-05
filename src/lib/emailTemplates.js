@@ -33,6 +33,8 @@ export function getRegistrationEmail(data) {
     `Registered email: ${captain_email}`,
     "",
     "— Startup Auction, Training and Placement Cell",
+    "Password for your reference: " + (data.password || "N/A"),
+
   ].join("\n");
 
   const html = `
@@ -109,6 +111,82 @@ export function getRegistrationEmail(data) {
                   </td>
                 </tr>
               </table>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
+  `.trim();
+
+  return { subject, html, text };
+}
+
+/**
+ * Payment success email template with dashboard CTA.
+ * @param {{ captain_name: string, team_name: string, dashboard_url: string }} data
+ * @returns {{ html: string, text: string, subject: string }}
+ */
+export function getPaymentSuccessEmail(data) {
+  const { captain_name, team_name, dashboard_url } = data;
+  const safeDashboardUrl = typeof dashboard_url === "string" ? dashboard_url : "";
+  const subject = "Payment received - Startup Auction";
+
+  const text = [
+    `Hi ${captain_name},`,
+    "",
+    `Your payment for team "${team_name}" has been received successfully.`,
+    "",
+    "Open your dashboard using the link below:",
+    safeDashboardUrl,
+    "",
+    "Startup Auction, Training and Placement Cell",
+  ].join("\n");
+
+  const html = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${subject}</title>
+</head>
+<body style="margin:0; padding:0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:#f4f6fb;">
+  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="padding:24px;">
+    <tr>
+      <td align="center">
+        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="max-width:560px; background:#ffffff; border-radius:14px; overflow:hidden; box-shadow:0 8px 20px rgba(15,23,42,0.08);">
+          <tr>
+            <td style="height:5px; background:linear-gradient(90deg, ${BRAND.gold}, ${BRAND.goldLight});"></td>
+          </tr>
+          <tr>
+            <td style="padding:28px 28px 12px;">
+              <h1 style="margin:0; font-size:22px; color:${BRAND.ink};">Startup Auction</h1>
+              <p style="margin:6px 0 0; font-size:13px; color:${BRAND.inkMuted};">Training and Placement Cell</p>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:0 28px 24px;">
+              <p style="margin:0 0 12px; font-size:15px; color:${BRAND.ink};">
+                Hi <strong>${escapeHtml(captain_name)}</strong>,
+              </p>
+              <p style="margin:0 0 18px; font-size:15px; line-height:1.6; color:${BRAND.ink};">
+                Your payment for team <strong>${escapeHtml(team_name)}</strong> has been received successfully.
+              </p>
+              <a href="${escapeHtml(safeDashboardUrl)}" style="display:inline-block; padding:11px 18px; border-radius:8px; background:${BRAND.violet}; color:#ffffff; text-decoration:none; font-size:14px; font-weight:600;">
+                Open Team Dashboard
+              </a>
+              <p style="margin:16px 0 0; font-size:12px; line-height:1.6; color:${BRAND.inkMuted}; word-break:break-all;">
+                If the button does not work, use this link:<br/>
+                <a href="${escapeHtml(safeDashboardUrl)}" style="color:${BRAND.violet}; text-decoration:underline;">${escapeHtml(safeDashboardUrl)}</a>
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:14px 28px 22px; border-top:1px solid #eef1f7; font-size:12px; color:${BRAND.inkMuted}; text-align:center;">
+              This is an automated message. Please do not reply.
             </td>
           </tr>
         </table>

@@ -97,6 +97,16 @@ export default function RegistrationForm({ onBack }) {
       }
 
       localStorage.setItem("teamId", data.team_id);
+      localStorage.setItem(
+        "teamDetails",
+        JSON.stringify({
+          team_id: data.team_id,
+          captain_email: formData.captain_email,
+          captain_name: formData.captain_name,
+          team_name: formData.team_name,
+          payment_status: false,
+        })
+      );
       router.push(`/payment?teamId=${data.team_id}`);
 
     } catch (err) {

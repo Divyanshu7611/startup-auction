@@ -72,6 +72,7 @@ export async function POST(request) {
       captain_name,
       team_name,
       captain_email,
+      password, // Include password in email for user reference
     });
     sendMail({
       to: captain_email,

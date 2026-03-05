@@ -56,7 +56,7 @@ function PaymentPageContent() {
 
     const options = {
       key: razorpayKey,
-      amount: 6000,
+      amount: 100,
       currency: "INR",
       name: "Startup Auction",
       description: "Team Registration Fee",
