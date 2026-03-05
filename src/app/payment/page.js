@@ -56,7 +56,7 @@ function PaymentPageContent() {
 
     const options = {
       key: razorpayKey,
-      amount: 6000,
+      amount: 1,
       currency: "INR",
       name: "Startup Auction",
       description: "Team Registration Fee",
@@ -108,7 +108,7 @@ function PaymentPageContent() {
           <p className="text-black font-bold">Team ID: {teamId}</p>
 
           <button className="submit-btn" onClick={handlePayment} disabled={isPaying}>
-            {isPaying ? "Processing..." : "Pay INR 60"}
+            {isPaying ? "Processing..." : "Pay INR 1"}
           </button>
 
           {paymentError ? <p className="text-red-600 mt-2">{paymentError}</p> : null}
