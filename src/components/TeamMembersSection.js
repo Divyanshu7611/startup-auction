@@ -1,6 +1,6 @@
 "use client";
 
-const MAX_MEMBERS = 3;
+const MAX_MEMBERS = 4;
 
 export default function TeamMembersSection({
   members = [],
@@ -12,7 +12,7 @@ export default function TeamMembersSection({
   return (
     <div className="section">
       <div className="member-header">
-        <h2>Team Members (Max 3)</h2>
+        <h2>Team Members (Max 4)</h2>
         <button
           type="button"
           className="add-btn"
@@ -59,7 +59,7 @@ export default function TeamMembersSection({
 
       {isMaxReached && (
         <p className="limit-text">
-          Maximum 3 team members allowed.
+          Maximum 4 team members allowed.
         </p>
       )}
     </div>

@@ -38,7 +38,7 @@ export default function RegistrationForm({ onBack }) {
   };
 
   const addMember = () => {
-    if (formData.team_members.length < 3) {
+    if (formData.team_members.length < 4) {
       setFormData((prev) => ({
         ...prev,
         team_members: [
