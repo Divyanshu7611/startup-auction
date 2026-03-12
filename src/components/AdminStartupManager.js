@@ -17,8 +17,13 @@ export default function AdminStartupManager() {
   const [startups, setStartups] = useState([]);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
+  const [creditSubmitting, setCreditSubmitting] = useState(false);
+  const [creditResetting, setCreditResetting] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [creditAmount, setCreditAmount] = useState("");
+  const [creditError, setCreditError] = useState("");
+  const [creditSuccess, setCreditSuccess] = useState("");
 
   async function loadStartups() {
     setLoading(true);
@@ -83,8 +88,120 @@ export default function AdminStartupManager() {
     }
   };
 
+  const handleReleaseCredits = async (event) => {
+    event.preventDefault();
+    setCreditError("");
+    setCreditSuccess("");
+
+    const parsedAmount = Number(creditAmount);
+    if (!Number.isFinite(parsedAmount) || parsedAmount <= 0) {
+      setCreditError("Enter a valid positive amount.");
+      return;
+    }
+
+    setCreditSubmitting(true);
+    try {
+      const response = await fetch("/api/admin/wallet-credits", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ amount: parsedAmount }),
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data?.error || "Failed to release wallet credits");
+      }
+
+      setCreditAmount("");
+      setCreditSuccess(
+        `Released ${data.amount} wallet credits to ${data.teamsUpdated} team(s).`
+      );
+    } catch (err) {
+      setCreditError(err.message || "Failed to release wallet credits");
+    } finally {
+      setCreditSubmitting(false);
+    }
+  };
+
+  const handleResetCredits = async () => {
+    setCreditError("");
+    setCreditSuccess("");
+
+    const shouldReset = window.confirm(
+      "This will reset wallet credits to 0 for all teams. Continue?"
+    );
+    if (!shouldReset) {
+      return;
+    }
+
+    setCreditResetting(true);
+    try {
+      const response = await fetch("/api/admin/wallet-credits", {
+        method: "DELETE",
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data?.error || "Failed to reset wallet credits");
+      }
+
+      setCreditSuccess(`Reset wallet credits to 0 for ${data.teamsUpdated} team(s).`);
+    } catch (err) {
+      setCreditError(err.message || "Failed to reset wallet credits");
+    } finally {
+      setCreditResetting(false);
+    }
+  };
+
   return (
     <section className="space-y-5">
+      <div className="rounded-2xl bg-white p-5 shadow-lg ring-1 ring-slate-200 sm:p-6">
+        <div className="mb-4 flex items-center justify-between">
+          <h2 className="text-lg font-semibold text-slate-900">Release Wallet Credits</h2>
+          <span className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">
+            All Teams
+          </span>
+        </div>
+
+        <form className="grid grid-cols-1 gap-4 sm:grid-cols-4" onSubmit={handleReleaseCredits}>
+          <label className="block text-sm text-slate-700 sm:col-span-2">
+            Credit Amount
+            <input
+              type="number"
+              step="0.01"
+              min="0.01"
+              value={creditAmount}
+              onChange={(event) => setCreditAmount(event.target.value)}
+              className="mt-1.5 w-full rounded-lg border border-slate-300 px-3 py-2 outline-none focus:border-slate-500"
+              placeholder="Enter amount to add to every team wallet"
+              required
+            />
+          </label>
+
+          <button
+            type="submit"
+            disabled={creditSubmitting || creditResetting}
+            className="mt-auto rounded-lg bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-70"
+          >
+            {creditSubmitting ? "Releasing..." : "Release to All Teams"}
+          </button>
+
+          <button
+            type="button"
+            onClick={handleResetCredits}
+            disabled={creditSubmitting || creditResetting}
+            className="mt-auto rounded-lg bg-rose-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-rose-700 disabled:cursor-not-allowed disabled:opacity-70"
+          >
+            {creditResetting ? "Resetting..." : "Reset Credits to 0"}
+          </button>
+
+          {creditError ? <p className="sm:col-span-3 text-sm text-red-600">{creditError}</p> : null}
+          {creditSuccess ? <p className="sm:col-span-3 text-sm text-emerald-700">{creditSuccess}</p> : null}
+        </form>
+      </div>
+
       <div className="rounded-2xl bg-white p-5 shadow-lg ring-1 ring-slate-200 sm:p-6">
         <div className="mb-4 flex items-center justify-between">
           <h2 className="text-lg font-semibold text-slate-900">Add Startup</h2>
