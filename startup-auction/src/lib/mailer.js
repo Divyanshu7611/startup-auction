@@ -24,6 +24,9 @@ function getTransporter() {
       user,
       pass,
     },
+    tls: {
+      rejectUnauthorized: process.env.SMTP_TLS_REJECT_UNAUTHORIZED !== 'false'
+    }
   })
 
   if (process.env.NODE_ENV !== 'production') {

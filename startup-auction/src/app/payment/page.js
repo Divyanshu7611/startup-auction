@@ -56,7 +56,7 @@ function PaymentPageContent() {
 
     const options = {
       key: razorpayKey,
-      amount: 100, // ₹60 in paise (Razorpay uses paise: 100 paise = 1 INR)
+      amount: 6000, // ₹60 in paise (Razorpay uses paise: 100 paise = 1 INR)
       currency: "INR",
       name: "Bid War",
       description: "Team Registration Fee",
