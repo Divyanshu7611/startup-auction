@@ -56,7 +56,7 @@ function PaymentPageContent() {
 
     const options = {
       key: razorpayKey,
-      amount: 6000, // 1 INR in paise (Razorpay uses paise)
+      amount: 100, // 1 INR in paise (Razorpay uses paise)
       currency: "INR",
       name: "Startup Auction",
       description: "Team Registration Fee",
@@ -114,7 +114,7 @@ function PaymentPageContent() {
               onClick={handlePayment}
               disabled={isPaying}
             >
-              {isPaying ? "Processing..." : "Pay INR 60"}
+              {isPaying ? "Processing..." : "Pay INR 1"}
             </button>
 
             {paymentError ? <p className="mt-3 break-words text-sm text-red-600 sm:text-base">{paymentError}</p> : null}
