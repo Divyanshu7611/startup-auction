@@ -6,6 +6,7 @@ export default function TeamMembersSection({
   members = [],
   onMemberChange,
   addMember,
+  removeMember,
 }) {
   const isMaxReached = members.length >= MAX_MEMBERS;
 
@@ -22,6 +23,12 @@ export default function TeamMembersSection({
           + Add
         </button>
       </div>
+
+      {members.length === 0 && (
+        <p style={{ textAlign: 'center', color: '#7b7f96', fontSize: '14px', margin: '20px 0' }}>
+          No team members added. Click "+ Add" to add team members (optional).
+        </p>
+      )}
 
       {members.map((member, index) => (
         <div key={index} className="member-card">
@@ -51,6 +58,23 @@ export default function TeamMembersSection({
               onMemberChange(index, "contact", e.target.value)
             }
           />
+          
+          <button
+            type="button"
+            onClick={() => removeMember(index)}
+            style={{
+              marginTop: '10px',
+              padding: '8px 16px',
+              backgroundColor: '#dc3545',
+              color: 'white',
+              border: 'none',
+              borderRadius: '6px',
+              cursor: 'pointer',
+              fontSize: '14px'
+            }}
+          >
+            Remove Member {index + 1}
+          </button>
         </div>
       ))}
 

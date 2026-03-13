@@ -49,6 +49,13 @@ export default function RegistrationForm({ onBack }) {
     }
   };
 
+  const removeMember = (index) => {
+    setFormData((prev) => ({
+      ...prev,
+      team_members: prev.team_members.filter((_, i) => i !== index),
+    }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -119,6 +126,7 @@ export default function RegistrationForm({ onBack }) {
           members={formData.team_members}
           onMemberChange={handleMemberChange}
           addMember={addMember}
+          removeMember={removeMember}
         />
 
         {error && <p className="limit-text">{error}</p>}
