@@ -58,7 +58,7 @@ function PaymentPageContent() {
       key: razorpayKey,
       amount: 6000, // 1 INR in paise (Razorpay uses paise)
       currency: "INR",
-      name: "Startup Auction",
+      name: "Bid War - Anukriti'26",
       description: "Team Registration Fee",
       handler: async function () {
         try {

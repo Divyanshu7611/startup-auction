@@ -38,7 +38,7 @@ export default function RegistrationForm({ onBack }) {
   };
 
   const addMember = () => {
-    if (formData.team_members.length < 3) {
+    if (formData.team_members.length < 2) {
       setFormData((prev) => ({
         ...prev,
         team_members: [
@@ -108,7 +108,10 @@ export default function RegistrationForm({ onBack }) {
 
   return (
     <div className="form-container">
-     <h1>🚀 Startup Auction Registration <span className="highlight">Training and Placement Cell</span></h1>
+     <h1>🚀 Bid War Registration <span className="highlight">Anukriti'26</span></h1>
+     <p style={{ textAlign: 'center', marginTop: '10px', fontSize: '14px', color: '#7b7f96' }}>
+       For any queries contact: <strong>63781 43603</strong> | <strong>9549545450</strong>
+     </p>
       <form onSubmit={handleSubmit}>
         <CaptainSection formData={formData} onChange={handleChange} />
         <TeamSection formData={formData} onChange={handleChange} />
