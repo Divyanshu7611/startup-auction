@@ -27,32 +27,29 @@ export default function TeamMembersSection({
         <div key={index} className="member-card">
           <input
             type="text"
-            placeholder={`Member ${index + 1} Name`}
+            placeholder={`Member ${index + 1} Name (Optional)`}
             value={member.name}
             onChange={(e) =>
               onMemberChange(index, "name", e.target.value)
             }
-            required
           />
 
           <input
             type="text"
-            placeholder="Roll Number"
+            placeholder="Roll Number (Optional)"
             value={member.roll}
             onChange={(e) =>
               onMemberChange(index, "roll", e.target.value)
             }
-            required
           />
 
           <input
             type="tel"
-            placeholder="Contact Number"
+            placeholder="Contact Number (Optional)"
             value={member.contact}
             onChange={(e) =>
               onMemberChange(index, "contact", e.target.value)
             }
-            required
           />
         </div>
       ))}

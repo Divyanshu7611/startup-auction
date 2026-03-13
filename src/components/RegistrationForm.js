@@ -17,7 +17,7 @@ export default function RegistrationForm({ onBack }) {
     team_name: "",
     contact_number: "",
     captain_roll_number: "",
-    team_members: [{ name: "", roll: "", contact: "" }],
+    team_members: [],
   });
 
   const [loading, setLoading] = useState(false);
