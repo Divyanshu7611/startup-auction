@@ -1,0 +1,79 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model prisma_init {
+  id         Int      @id @default(dbgenerated("nextval('_prisma_init_id_seq'::regclass)"))
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+
+  @@map("_prisma_init")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model payments {
+  payment_id         BigInt              @id @default(autoincrement())
+  team_id            BigInt
+  amount             Decimal             @db.Decimal(10, 2)
+  order_id           String              @db.VarChar(255)
+  gateway_payment_id String?             @db.VarChar(255)
+  status             payment_status_enum @default(PENDING)
+  created_at         DateTime            @default(now()) @db.Timestamp(6)
+  teams              teams               @relation(fields: [team_id], references: [team_id], onDelete: Cascade, onUpdate: NoAction, map: "fk_team")
+}
+
+model startups {
+  startup_id    BigInt             @id @default(autoincrement())
+  name          String             @db.VarChar(255)
+  sector        String             @db.VarChar(255)
+  revenue       Decimal            @db.Decimal(14, 2)
+  growth_rate   Decimal            @db.Decimal(5, 2)
+  risk_level    startup_risk_level
+  base_price    Decimal            @db.Decimal(14, 2)
+  current_price Decimal            @db.Decimal(14, 2)
+  owner_team_id BigInt?
+  status        startup_status     @default(available)
+  created_at    DateTime           @default(now()) @db.Timestamp(6)
+  teams         teams?             @relation(fields: [owner_team_id], references: [team_id], onUpdate: NoAction, map: "fk_startups_owner_team")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model teams {
+  team_id               BigInt     @id @default(autoincrement())
+  captain_name          String     @db.VarChar(150)
+  captain_email         String     @unique @db.VarChar(255)
+  password_hash         String
+  team_name             String     @unique @db.VarChar(150)
+  contact_number        String     @db.VarChar(20)
+  team_members          Json?
+  wallet                Decimal    @default(0) @db.Decimal(12, 2)
+  reserved_amount       Decimal    @default(0) @db.Decimal(12, 2)
+  final_portfolio_value Decimal    @default(0) @db.Decimal(14, 2)
+  payment_status        Boolean    @default(false)
+  created_at            DateTime   @default(now()) @db.Timestamp(6)
+  captain_roll_number   String?    @db.VarChar(20)
+  payments              payments[]
+  startups              startups[]
+}
+
+enum payment_status_enum {
+  PENDING
+  SUCCESS
+  FAILED
+}
+
+enum startup_risk_level {
+  Low
+  Medium
+  High
+}
+
+enum startup_status {
+  available
+  live
+  sold
+}
