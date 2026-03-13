@@ -56,7 +56,7 @@ function PaymentPageContent() {
 
     const options = {
       key: razorpayKey,
-      amount: 6000, // 1 INR in paise (Razorpay uses paise)
+      amount: 100, // 1 INR in paise (Razorpay uses paise)
       currency: "INR",
       name: "Startup Auction",
       description: "Team Registration Fee",
