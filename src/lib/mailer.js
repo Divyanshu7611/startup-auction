@@ -1,25 +1,36 @@
-import sgMail from '@sendgrid/mail'
+import nodemailer from 'nodemailer'
 
 const globalForMailer = globalThis
 
-function getSendGridClient() {
-  if (globalForMailer.sendGridClient) {
-    return globalForMailer.sendGridClient
+function getTransporter() {
+  if (globalForMailer.emailTransporter) {
+    return globalForMailer.emailTransporter
   }
 
-  const apiKey = process.env.SENDGRID_API_KEY
+  const host = process.env.SMTP_HOST
+  const port = process.env.SMTP_PORT
+  const user = process.env.SMTP_USER
+  const pass = process.env.SMTP_PASS
 
-  if (!apiKey) {
-    throw new Error('Missing SendGrid configuration. Set SENDGRID_API_KEY in your environment variables.')
+  if (!host || !port || !user || !pass) {
+    throw new Error('Missing SMTP configuration. Set SMTP_HOST, SMTP_PORT, SMTP_USER, and SMTP_PASS in your environment variables.')
   }
 
-  sgMail.setApiKey(apiKey)
+  const transporter = nodemailer.createTransport({
+    host,
+    port: parseInt(port, 10),
+    secure: process.env.SMTP_SECURE === 'true', // true for 465, false for other ports
+    auth: {
+      user,
+      pass,
+    },
+  })
 
   if (process.env.NODE_ENV !== 'production') {
-    globalForMailer.sendGridClient = sgMail
+    globalForMailer.emailTransporter = transporter
   }
 
-  return sgMail
+  return transporter
 }
 
 export async function sendMail({ to, subject, text, html, from }) {
@@ -37,24 +48,22 @@ export async function sendMail({ to, subject, text, html, from }) {
     throw new Error('Missing "from" email address. Set MAIL_FROM in your environment variables.')
   }
 
-  const client = getSendGridClient()
+  const transporter = getTransporter()
 
-  const msg = {
-    to,
+  const mailOptions = {
     from: sender,
+    to,
     subject,
     text,
     html,
   }
 
   try {
-    const response = await client.send(msg)
-    return response
+    const info = await transporter.sendMail(mailOptions)
+    console.log('Email sent successfully:', info.messageId)
+    return info
   } catch (error) {
-    console.error('SendGrid Error:', error)
-    if (error.response) {
-      console.error('SendGrid Error Body:', error.response.body)
-    }
+    console.error('SMTP Error:', error)
     throw error
   }
 }
