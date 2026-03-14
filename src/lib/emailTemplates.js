@@ -14,25 +14,29 @@ const BRAND = {
 
 /**
  * Registration confirmation email template.
- * @param {{ captain_name: string, team_name: string, captain_email: string }} data
+ * @param {{ captain_name: string, team_name: string, captain_email: string, password: string }} data
  * @returns {{ html: string, text: string, subject: string }}
  */
 export function getRegistrationEmail(data) {
-  const { captain_name, team_name, captain_email } = data;
-  const subject = "Team registration confirmed – Startup Auction";
+  const { captain_name, team_name, captain_email, password } = data;
+  const subject = "Team registration confirmed – Bid War";
 
   const text = [
     `Hi ${captain_name},`,
     "",
-    `Your team "${team_name}" has been successfully registered for Startup Auction (Training and Placement Cell).`,
+    `Your team "${team_name}" has been successfully registered for Bid War (Anukriti'26).`,
+    "",
+    "Login credentials:",
+    `Email: ${captain_email}`,
+    `Password: ${password}`,
     "",
     "Next steps:",
     "• Complete payment when prompted to confirm your participation.",
     "• Keep this email for your records.",
     "",
-    `Registered email: ${captain_email}`,
+    "For any queries contact: 63781 43603 | 9549545450",
     "",
-    "— Startup Auction, Training and Placement Cell",
+    "— Bid War, Anukriti'26",
   ].join("\n");
 
   const html = `
@@ -60,10 +64,10 @@ export function getRegistrationEmail(data) {
                 <tr>
                   <td style="padding: 32px 40px 24px; text-align: center;">
                     <h1 style="margin: 0; font-size: 22px; font-weight: 600; color: ${BRAND.ink}; letter-spacing: -0.02em;">
-                      🚀 Startup Auction
+                      🚀 Bid War
                     </h1>
                     <p style="margin: 6px 0 0; font-size: 13px; color: ${BRAND.inkMuted}; font-weight: 500;">
-                      Training and Placement Cell
+                      Anukriti'26
                     </p>
                   </td>
                 </tr>
@@ -82,13 +86,16 @@ export function getRegistrationEmail(data) {
                       Hi <strong>${escapeHtml(captain_name)}</strong>,
                     </p>
                     <p style="margin: 0 0 20px; font-size: 15px; line-height: 1.65; color: ${BRAND.ink};">
-                      Your team <strong style="color: ${BRAND.gold};">${escapeHtml(team_name)}</strong> has been successfully registered for Startup Auction.
+                      Your team <strong style="color: ${BRAND.gold};">${escapeHtml(team_name)}</strong> has been successfully registered for Bid War.
                     </p>
-                    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background: #f7f7fb; border-radius: 12px; border: 1px solid #eeeef6;">
+                    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background: #f7f7fb; border-radius: 12px; border: 1px solid #eeeef6; margin-bottom: 16px;">
                       <tr>
                         <td style="padding: 16px 20px;">
-                          <p style="margin: 0 0 6px; font-size: 11px; font-weight: 600; color: ${BRAND.inkMuted}; text-transform: uppercase; letter-spacing: 0.04em;">Registered email</p>
-                          <p style="margin: 0; font-size: 14px; color: ${BRAND.ink}; font-weight: 500;">${escapeHtml(captain_email)}</p>
+                          <p style="margin: 0 0 6px; font-size: 11px; font-weight: 600; color: ${BRAND.inkMuted}; text-transform: uppercase; letter-spacing: 0.04em;">Login Credentials</p>
+                          <p style="margin: 0 0 8px; font-size: 13px; color: ${BRAND.inkMuted};">Email</p>
+                          <p style="margin: 0 0 12px; font-size: 14px; color: ${BRAND.ink}; font-weight: 500;">${escapeHtml(captain_email)}</p>
+                          <p style="margin: 0 0 8px; font-size: 13px; color: ${BRAND.inkMuted};">Password</p>
+                          <p style="margin: 0; font-size: 14px; color: ${BRAND.ink}; font-weight: 600; font-family: monospace; background: #fff; padding: 8px 12px; border-radius: 6px; display: inline-block;">${escapeHtml(password)}</p>
                         </td>
                       </tr>
                     </table>
@@ -101,7 +108,10 @@ export function getRegistrationEmail(data) {
                 <tr>
                   <td style="padding: 24px 40px 32px; border-top: 1px solid #eeeef6; text-align: center;">
                     <p style="margin: 0; font-size: 12px; color: ${BRAND.inkMuted};">
-                      Startup Auction · Training and Placement Cell
+                      Bid War · Anukriti'26
+                    </p>
+                    <p style="margin: 6px 0 0; font-size: 11px; color: ${BRAND.inkMuted};">
+                      For any queries contact: <strong>63781 43603</strong> | <strong>9549545450</strong>
                     </p>
                     <p style="margin: 6px 0 0; font-size: 11px; color: #aaa;">
                       This is an automated message. Please do not reply to this email.
@@ -146,7 +156,7 @@ export function getPaymentReceiptEmail(data) {
     payment_date = new Date().toLocaleDateString("en-IN", { dateStyle: "long", timeZone: "Asia/Kolkata" }),
   } = data;
 
-  const subject = "Payment received – Startup Auction (Team " + escapeHtml(team_name) + ")";
+  const subject = "Payment received – Bid War (Team " + escapeHtml(team_name) + ")";
 
   const membersList = team_members.length
     ? team_members
@@ -161,7 +171,7 @@ export function getPaymentReceiptEmail(data) {
   const text = [
     `Hi ${captain_name},`,
     "",
-    "Your payment for Startup Auction has been received successfully.",
+    "Your payment for Bid War has been received successfully.",
     "",
     "Receipt summary:",
     `Team name: ${team_name}`,
@@ -174,7 +184,9 @@ export function getPaymentReceiptEmail(data) {
     "",
     "Thank you for participating. Keep this email as your payment receipt.",
     "",
-    "— Startup Auction, Training and Placement Cell",
+    "For any queries contact: 63781 43603 | 9549545450",
+    "",
+    "— Bid War, Anukriti'26",
   ].join("\n");
 
   const membersRows =
@@ -219,8 +231,8 @@ export function getPaymentReceiptEmail(data) {
               <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
                 <tr>
                   <td style="padding: 32px 40px 24px; text-align: center;">
-                    <h1 style="margin: 0; font-size: 22px; font-weight: 600; color: ${BRAND.ink}; letter-spacing: -0.02em;">🚀 Startup Auction</h1>
-                    <p style="margin: 6px 0 0; font-size: 13px; color: ${BRAND.inkMuted}; font-weight: 500;">Training and Placement Cell</p>
+                    <h1 style="margin: 0; font-size: 22px; font-weight: 600; color: ${BRAND.ink}; letter-spacing: -0.02em;">🚀 Bid War</h1>
+                    <p style="margin: 6px 0 0; font-size: 13px; color: ${BRAND.inkMuted}; font-weight: 500;">Anukriti'26</p>
                   </td>
                 </tr>
                 <tr>
@@ -267,7 +279,10 @@ export function getPaymentReceiptEmail(data) {
                 </tr>
                 <tr>
                   <td style="padding: 24px 40px 32px; border-top: 1px solid #eeeef6; text-align: center;">
-                    <p style="margin: 0; font-size: 12px; color: ${BRAND.inkMuted};">Startup Auction · Training and Placement Cell</p>
+                    <p style="margin: 0; font-size: 12px; color: ${BRAND.inkMuted};">Bid War · Anukriti'26</p>
+                    <p style="margin: 6px 0 0; font-size: 11px; color: ${BRAND.inkMuted};">
+                      For any queries contact: <strong>63781 43603</strong> | <strong>9549545450</strong>
+                    </p>
                     <p style="margin: 6px 0 0; font-size: 11px; color: #aaa;">This is an automated receipt. Please do not reply.</p>
                   </td>
                 </tr>

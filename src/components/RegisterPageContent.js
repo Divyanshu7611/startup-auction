@@ -22,8 +22,8 @@ export default function RegisterPageContent() {
 
   return (
     <div className="form-container auth-choice-container">
-      <h1>Startup Auction</h1>
-      <p className="subtitle">Training and Placement Cell</p>
+      <h1>Bid War</h1>
+      <p className="subtitle">Anukriti'26 | Placement Cell - RTUK X Finance Club</p>
 
       <p className="auth-choice-prompt">Register a new team or login to your existing team.</p>
 
