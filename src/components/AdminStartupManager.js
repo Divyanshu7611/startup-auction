@@ -247,13 +247,13 @@ export default function AdminStartupManager() {
           </label>
 
           <label className="block text-sm text-slate-700">
-            Growth Rate
+            Growth Rate Range (%)
             <input
-              type="number"
-              step="0.01"
+              type="text"
               value={form.growth_rate}
               onChange={onChange("growth_rate")}
               className="mt-1.5 w-full rounded-lg border border-slate-300 px-3 py-2 outline-none focus:border-slate-500"
+              placeholder="e.g. 50-60%"
               required
             />
           </label>
