@@ -4,6 +4,8 @@ import { prisma } from "@/lib/prisma";
 import { ADMIN_SESSION_COOKIE_NAME, verifyAdminSessionToken } from "@/lib/adminAuth";
 
 const ALLOWED_RISK_LEVELS = ["Low", "Medium", "High"];
+const MAX_DECIMAL_14_2 = 999999999999.99;
+const MAX_GROWTH_PERCENT = 100;
 
 function serializeStartup(startup) {
   return {
@@ -28,6 +30,41 @@ function serializeStartup(startup) {
 function validateNumber(value) {
   const parsed = Number(value);
   return Number.isFinite(parsed) ? parsed : null;
+}
+
+function hasMaxTwoDecimalPlaces(value) {
+  return Math.abs(Math.round(value * 100) - value * 100) < 1e-9;
+}
+
+function validateDecimalRange(value, { min, max }) {
+  if (!Number.isFinite(value)) return false;
+  if (!hasMaxTwoDecimalPlaces(value)) return false;
+  if (value < min) return false;
+  if (value > max) return false;
+  return true;
+}
+
+function formatPercentValue(value) {
+  return Number.isInteger(value) ? String(value) : value.toFixed(2).replace(/\.00$/, "");
+}
+
+function normalizeGrowthRateRange(value) {
+  if (typeof value !== "string") return null;
+
+  const trimmed = value.trim();
+  const match = trimmed.match(/^(\d{1,3}(?:\.\d{1,2})?)\s*-\s*(\d{1,3}(?:\.\d{1,2})?)\s*%?$/);
+  if (!match) {
+    return null;
+  }
+
+  const start = Number(match[1]);
+  const end = Number(match[2]);
+
+  if (!validateDecimalRange(start, { min: 0, max: MAX_GROWTH_PERCENT })) return null;
+  if (!validateDecimalRange(end, { min: 0, max: MAX_GROWTH_PERCENT })) return null;
+  if (start > end) return null;
+
+  return `${formatPercentValue(start)}-${formatPercentValue(end)}%`;
 }
 
 function isAdminAuthorized(request) {
@@ -81,7 +118,7 @@ export async function POST(request) {
     const name = payload?.name?.trim();
     const sector = payload?.sector?.trim();
     const revenue = validateNumber(payload?.revenue);
-    const growthRate = validateNumber(payload?.growth_rate);
+    const growthRate = normalizeGrowthRateRange(payload?.growth_rate);
     const riskLevel = payload?.risk_level;
     const basePrice = validateNumber(payload?.base_price);
     const currentPrice = validateNumber(payload?.current_price);
@@ -97,7 +134,24 @@ export async function POST(request) {
       currentPrice === null
     ) {
       return NextResponse.json(
-        { error: "Revenue, growth rate, base price and current price must be valid numbers" },
+        {
+          error:
+            "Revenue, base price and current price must be valid numbers, and growth rate must be in range format like 50-60%",
+        },
+        { status: 400 }
+      );
+    }
+
+    if (
+      !validateDecimalRange(revenue, { min: 0, max: MAX_DECIMAL_14_2 }) ||
+      !validateDecimalRange(basePrice, { min: 0, max: MAX_DECIMAL_14_2 }) ||
+      !validateDecimalRange(currentPrice, { min: 0, max: MAX_DECIMAL_14_2 })
+    ) {
+      return NextResponse.json(
+        {
+          error:
+            "Revenue, base price and current price must be between 0 and 999999999999.99 with up to 2 decimal places",
+        },
         { status: 400 }
       );
     }
@@ -148,6 +202,14 @@ export async function POST(request) {
     return NextResponse.json({ startup: serializeStartup(startup) }, { status: 201 });
   } catch (error) {
     console.error("Failed to create startup:", error);
+
+    if (error?.code === "P2010") {
+      return NextResponse.json(
+        { error: "Numeric value is out of range. Please reduce the amount and try again." },
+        { status: 400 }
+      );
+    }
+
     return NextResponse.json({ error: "Failed to create startup" }, { status: 500 });
   }
 }
