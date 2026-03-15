@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import "../app/register/register.css";
 import LoginForm from "./LoginForm";
 import RegistrationForm from "./RegistrationForm";
@@ -42,6 +43,12 @@ export default function RegisterPageContent() {
         >
           Register new team
         </button>
+        <Link className="choice-btn" href="/battleground">
+          Battleground
+        </Link>
+        <Link className="choice-btn violet" href="/admin">
+          Admin Dashboard
+        </Link>
       </div>
     </div>
   );
