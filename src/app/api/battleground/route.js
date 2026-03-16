@@ -48,9 +48,21 @@ function serializeTeam(team) {
   };
 }
 
+function serializeSoldStartup(row) {
+  if (!row) return null;
+  return {
+    startup_id: toStringId(row.startup_id),
+    startup_name: row.startup_name,
+    final_price: toNumber(row.final_price ?? row.current_price),
+    owner_team_id: toStringId(row.owner_team_id),
+    owner_team_name: row.owner_team_name ?? null,
+    sold_at: row.sold_at ?? null,
+  };
+}
+
 export async function GET() {
   try {
-    const [liveRows, teamRows] = await Promise.all([
+    const [liveRows, teamRows, soldRows] = await Promise.all([
       prisma.$queryRaw`
         SELECT
           a.auction_id,
@@ -76,12 +88,34 @@ export async function GET() {
         FROM teams
         ORDER BY team_name ASC
       `,
+      prisma.$queryRaw`
+        SELECT
+          s.startup_id,
+          s.name AS startup_name,
+          s.current_price AS current_price,
+          s.owner_team_id,
+          t.team_name AS owner_team_name,
+          a.end_time AS sold_at,
+          a.highest_bid AS final_price
+        FROM startups s
+        LEFT JOIN teams t ON t.team_id = s.owner_team_id
+        LEFT JOIN LATERAL (
+          SELECT end_time, highest_bid
+          FROM auctions a
+          WHERE a.startup_id = s.startup_id AND a.end_time IS NOT NULL
+          ORDER BY a.end_time DESC
+          LIMIT 1
+        ) a ON true
+        WHERE s.status = 'sold'
+        ORDER BY a.end_time DESC NULLS LAST, s.name ASC
+      `,
     ]);
 
     return NextResponse.json(
       {
         liveAuction: serializeLiveAuction(liveRows[0]),
         teams: teamRows.map(serializeTeam),
+        soldStartups: soldRows.map(serializeSoldStartup).filter(Boolean),
         updatedAt: new Date().toISOString(),
       },
       { status: 200 }
