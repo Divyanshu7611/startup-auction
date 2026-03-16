@@ -16,3 +16,21 @@ export const payment_status_enum = {
 } as const
 
 export type payment_status_enum = (typeof payment_status_enum)[keyof typeof payment_status_enum]
+
+
+export const startup_risk_level = {
+  Low: 'Low',
+  Medium: 'Medium',
+  High: 'High'
+} as const
+
+export type startup_risk_level = (typeof startup_risk_level)[keyof typeof startup_risk_level]
+
+
+export const startup_status = {
+  available: 'available',
+  live: 'live',
+  sold: 'sold'
+} as const
+
+export type startup_status = (typeof startup_status)[keyof typeof startup_status]

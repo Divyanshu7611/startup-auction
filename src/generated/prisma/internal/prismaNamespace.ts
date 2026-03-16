@@ -386,7 +386,9 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 export const ModelName = {
   prisma_init: 'prisma_init',
   payments: 'payments',
-  teams: 'teams'
+  teams: 'teams',
+  startups: 'startups',
+  auctions: 'auctions'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -402,7 +404,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "prisma_init" | "payments" | "teams"
+    modelProps: "prisma_init" | "payments" | "teams" | "startups" | "auctions"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -628,6 +630,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    startups: {
+      payload: Prisma.$startupsPayload<ExtArgs>
+      fields: Prisma.startupsFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.startupsFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$startupsPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.startupsFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$startupsPayload>
+        }
+        findFirst: {
+          args: Prisma.startupsFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$startupsPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.startupsFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$startupsPayload>
+        }
+        findMany: {
+          args: Prisma.startupsFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$startupsPayload>[]
+        }
+        create: {
+          args: Prisma.startupsCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$startupsPayload>
+        }
+        createMany: {
+          args: Prisma.startupsCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.startupsCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$startupsPayload>[]
+        }
+        delete: {
+          args: Prisma.startupsDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$startupsPayload>
+        }
+        update: {
+          args: Prisma.startupsUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$startupsPayload>
+        }
+        deleteMany: {
+          args: Prisma.startupsDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.startupsUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.startupsUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$startupsPayload>[]
+        }
+        upsert: {
+          args: Prisma.startupsUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$startupsPayload>
+        }
+        aggregate: {
+          args: Prisma.StartupsAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateStartups>
+        }
+        groupBy: {
+          args: Prisma.startupsGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.StartupsGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.startupsCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.StartupsCountAggregateOutputType> | number
+        }
+      }
+    }
+    auctions: {
+      payload: Prisma.$auctionsPayload<ExtArgs>
+      fields: Prisma.auctionsFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.auctionsFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$auctionsPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.auctionsFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$auctionsPayload>
+        }
+        findFirst: {
+          args: Prisma.auctionsFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$auctionsPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.auctionsFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$auctionsPayload>
+        }
+        findMany: {
+          args: Prisma.auctionsFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$auctionsPayload>[]
+        }
+        create: {
+          args: Prisma.auctionsCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$auctionsPayload>
+        }
+        createMany: {
+          args: Prisma.auctionsCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.auctionsCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$auctionsPayload>[]
+        }
+        delete: {
+          args: Prisma.auctionsDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$auctionsPayload>
+        }
+        update: {
+          args: Prisma.auctionsUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$auctionsPayload>
+        }
+        deleteMany: {
+          args: Prisma.auctionsDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.auctionsUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.auctionsUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$auctionsPayload>[]
+        }
+        upsert: {
+          args: Prisma.auctionsUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$auctionsPayload>
+        }
+        aggregate: {
+          args: Prisma.AuctionsAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAuctions>
+        }
+        groupBy: {
+          args: Prisma.auctionsGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AuctionsGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.auctionsCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AuctionsCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -705,6 +855,36 @@ export const TeamsScalarFieldEnum = {
 } as const
 
 export type TeamsScalarFieldEnum = (typeof TeamsScalarFieldEnum)[keyof typeof TeamsScalarFieldEnum]
+
+
+export const StartupsScalarFieldEnum = {
+  startup_id: 'startup_id',
+  name: 'name',
+  sector: 'sector',
+  revenue: 'revenue',
+  growth_rate: 'growth_rate',
+  risk_level: 'risk_level',
+  base_price: 'base_price',
+  current_price: 'current_price',
+  owner_team_id: 'owner_team_id',
+  status: 'status',
+  created_at: 'created_at'
+} as const
+
+export type StartupsScalarFieldEnum = (typeof StartupsScalarFieldEnum)[keyof typeof StartupsScalarFieldEnum]
+
+
+export const AuctionsScalarFieldEnum = {
+  auction_id: 'auction_id',
+  startup_id: 'startup_id',
+  start_time: 'start_time',
+  end_time: 'end_time',
+  highest_bid: 'highest_bid',
+  highest_bidder: 'highest_bidder',
+  bid_amount: 'bid_amount'
+} as const
+
+export type AuctionsScalarFieldEnum = (typeof AuctionsScalarFieldEnum)[keyof typeof AuctionsScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -860,6 +1040,34 @@ export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel,
 
 
 /**
+ * Reference to a field of type 'startup_risk_level'
+ */
+export type Enumstartup_risk_levelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'startup_risk_level'>
+    
+
+
+/**
+ * Reference to a field of type 'startup_risk_level[]'
+ */
+export type ListEnumstartup_risk_levelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'startup_risk_level[]'>
+    
+
+
+/**
+ * Reference to a field of type 'startup_status'
+ */
+export type Enumstartup_statusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'startup_status'>
+    
+
+
+/**
+ * Reference to a field of type 'startup_status[]'
+ */
+export type ListEnumstartup_statusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'startup_status[]'>
+    
+
+
+/**
  * Reference to a field of type 'Float'
  */
 export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -970,6 +1178,8 @@ export type GlobalOmitConfig = {
   prisma_init?: Prisma.prisma_initOmit
   payments?: Prisma.paymentsOmit
   teams?: Prisma.teamsOmit
+  startups?: Prisma.startupsOmit
+  auctions?: Prisma.auctionsOmit
 }
 
 /* Types for Logging */

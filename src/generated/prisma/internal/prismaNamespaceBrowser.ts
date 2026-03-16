@@ -53,7 +53,9 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   prisma_init: 'prisma_init',
   payments: 'payments',
-  teams: 'teams'
+  teams: 'teams',
+  startups: 'startups',
+  auctions: 'auctions'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -110,6 +112,36 @@ export const TeamsScalarFieldEnum = {
 } as const
 
 export type TeamsScalarFieldEnum = (typeof TeamsScalarFieldEnum)[keyof typeof TeamsScalarFieldEnum]
+
+
+export const StartupsScalarFieldEnum = {
+  startup_id: 'startup_id',
+  name: 'name',
+  sector: 'sector',
+  revenue: 'revenue',
+  growth_rate: 'growth_rate',
+  risk_level: 'risk_level',
+  base_price: 'base_price',
+  current_price: 'current_price',
+  owner_team_id: 'owner_team_id',
+  status: 'status',
+  created_at: 'created_at'
+} as const
+
+export type StartupsScalarFieldEnum = (typeof StartupsScalarFieldEnum)[keyof typeof StartupsScalarFieldEnum]
+
+
+export const AuctionsScalarFieldEnum = {
+  auction_id: 'auction_id',
+  startup_id: 'startup_id',
+  start_time: 'start_time',
+  end_time: 'end_time',
+  highest_bid: 'highest_bid',
+  highest_bidder: 'highest_bidder',
+  bid_amount: 'bid_amount'
+} as const
+
+export type AuctionsScalarFieldEnum = (typeof AuctionsScalarFieldEnum)[keyof typeof AuctionsScalarFieldEnum]
 
 
 export const SortOrder = {

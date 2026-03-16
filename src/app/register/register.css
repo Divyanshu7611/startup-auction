@@ -551,6 +551,10 @@ input:disabled {
   cursor: pointer;
   transition: all var(--transition-fast);
   box-shadow: var(--shadow-input);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .choice-btn:hover {
