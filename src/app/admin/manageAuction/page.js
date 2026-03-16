@@ -1,19 +1,9 @@
 import Link from "next/link";
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
-
-import { ADMIN_SESSION_COOKIE_NAME, verifyAdminSessionToken } from "@/lib/adminAuth";
 import AdminAuctionManager from "@/components/AdminAuctionManager";
 
 export default async function ManageAuctionPage() {
-  const cookieStore = await cookies();
-  const token = cookieStore.get(ADMIN_SESSION_COOKIE_NAME)?.value;
-  const adminSession = verifyAdminSessionToken(token);
-
-  if (!adminSession) {
-    redirect("/admin/login");
-  }
-
+  // No authentication check - direct access
+  
   return (
     <main className="min-h-screen bg-slate-100 px-4 py-8 sm:py-10">
       <div className="mx-auto w-full max-w-6xl">
@@ -22,7 +12,7 @@ export default async function ManageAuctionPage() {
             <div>
               <h1 className="text-2xl font-bold text-slate-900">Manage Auction</h1>
               <p className="mt-1 text-sm text-slate-600">
-                Signed in as <span className="font-semibold">{adminSession.userId}</span>
+                Signed in as <span className="font-semibold">admin</span>
               </p>
             </div>
 

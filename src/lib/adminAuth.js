@@ -1,4 +1,4 @@
-// Simple hardcoded admin credentials
+// Simple hardcoded admin credentials - direct login without sessions
 const ADMIN_USERNAME = "admin";
 const ADMIN_PASSWORD = "admin123";
 
@@ -11,4 +11,9 @@ export function getAdminCredentials() {
     username: ADMIN_USERNAME,
     password: ADMIN_PASSWORD,
   };
+}
+
+// Simple direct authentication check
+export function isAdminAuthenticated(username, password) {
+  return validateAdminCredentials(username, password);
 }

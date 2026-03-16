@@ -229,7 +229,7 @@ export default function BattlegroundPage() {
                   Current Bid Amount
                 </p>
                 <p className="mt-3 text-3xl font-semibold text-cyan-200">
-                  {formatCurrency(liveAuction?.bid_amount || 0)}
+                  {formatCurrency(liveAuction?.bid_amount || 0)} Cr
                 </p>
                 <p className="mt-1 text-xs text-white/50">Live bid meter</p>
               </div>
