@@ -56,3 +56,13 @@ export type payments = Prisma.paymentsModel
  * This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
  */
 export type teams = Prisma.teamsModel
+/**
+ * Model startups
+ * 
+ */
+export type startups = Prisma.startupsModel
+/**
+ * Model auctions
+ * 
+ */
+export type auctions = Prisma.auctionsModel
