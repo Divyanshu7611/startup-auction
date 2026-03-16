@@ -4,18 +4,13 @@ import Link from "next/link";
 import { Suspense, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
-function formatCurrency(value) {
-  const numericValue = Number(value);
-  if (!Number.isFinite(numericValue)) {
-    return "Rs 0.00";
-  }
-
-  return new Intl.NumberFormat("en-IN", {
-    style: "currency",
-    currency: "INR",
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  }).format(numericValue);
+function formatCrore(value) {
+  const num = Number(value);
+  if (!Number.isFinite(num)) return "Rs 0 Cr";
+  const formatted = Number.isInteger(num)
+    ? num.toString()
+    : num.toFixed(2).replace(/\.?0+$/, "");
+  return `Rs ${formatted} Cr`;
 }
 
 function TeamDetailsContent() {
@@ -127,7 +122,7 @@ function TeamDetailsContent() {
         <section className="grid grid-cols-1 gap-4 sm:gap-6">
           <div className="rounded-xl bg-white p-4 shadow-lg shadow-slate-200/50 ring-1 ring-slate-200/60 sm:rounded-2xl sm:p-6">
             <p className="text-xs font-medium uppercase tracking-wider text-slate-400">Wallet Balance</p>
-            <p className="mt-3 text-2xl font-bold text-emerald-700 sm:text-3xl">{formatCurrency(team?.wallet)}</p>
+            <p className="mt-3 text-2xl font-bold text-emerald-700 sm:text-3xl">{formatCrore(team?.wallet)}</p>
           </div>
         </section>
 
@@ -141,7 +136,7 @@ function TeamDetailsContent() {
 
           {soldStartups.length > 0 ? (
             <>
-              <p className="mt-2 text-sm text-slate-500">Total sold value: {formatCurrency(totalSoldValue)}</p>
+              <p className="mt-2 text-sm text-slate-500">Total sold value: {formatCrore(totalSoldValue)}</p>
               <div className="mt-4 overflow-x-auto">
                 <table className="min-w-full text-left text-sm">
                   <thead>
@@ -161,7 +156,7 @@ function TeamDetailsContent() {
                         <td className="px-3 py-3 text-slate-700">{startup.risk_level}</td>
                         <td className="px-3 py-3 text-slate-700">{startup.growth_rate}</td>
                         <td className="px-3 py-3 font-semibold text-slate-900">
-                          {formatCurrency(startup.current_price)}
+                          {formatCrore(startup.current_price)}
                         </td>
                       </tr>
                     ))}

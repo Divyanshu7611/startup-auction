@@ -43,18 +43,13 @@ function getInitials(name) {
     .slice(0, 2);
 }
 
-function formatCurrency(value) {
-  const numericValue = Number(value);
-  if (!Number.isFinite(numericValue)) {
-    return "Rs 0.00";
-  }
-
-  return new Intl.NumberFormat("en-IN", {
-    style: "currency",
-    currency: "INR",
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  }).format(numericValue);
+function formatCrore(value) {
+  const num = Number(value);
+  if (!Number.isFinite(num)) return "Rs 0 Cr";
+  const formatted = Number.isInteger(num)
+    ? num.toString()
+    : num.toFixed(2).replace(/\.?0+$/, "");
+  return `Rs ${formatted} Cr`;
 }
 
 function TeamDashboardContent() {
@@ -182,7 +177,7 @@ function TeamDashboardContent() {
           <div className="min-w-0 rounded-xl bg-white p-4 shadow-lg shadow-slate-200/50 ring-1 ring-slate-200/60 transition-shadow hover:shadow-xl sm:rounded-2xl sm:p-6 lg:col-span-2">
             <h2 className="text-base font-semibold text-slate-900 sm:text-lg">Wallet Credits</h2>
             <p className="mt-3 text-3xl font-bold tracking-tight text-emerald-700 sm:text-4xl">
-              {formatCurrency(team.wallet)}
+              {formatCrore(team.wallet)}
             </p>
             <p className="mt-2 text-sm text-slate-500">Available credits in your team wallet.</p>
           </div>

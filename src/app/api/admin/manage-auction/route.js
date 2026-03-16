@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { ADMIN_SESSION_COOKIE_NAME, verifyAdminSessionToken } from "@/lib/adminAuth";
 
-const BID_STEP = 50000;
+const BID_STEP = 5;
 const TRANSACTION_OPTIONS = {
   maxWait: 10000,
   timeout: 20000,
@@ -367,6 +367,7 @@ export async function PATCH(request) {
             }
 
             if (previousHighestBidder && previousHighestBid > 0) {
+              // Release the full bid amount the old bidder had reserved
               await tx.$executeRaw`
                 UPDATE teams
                 SET reserved_amount = GREATEST(reserved_amount - ${previousHighestBid}, 0)
@@ -374,6 +375,7 @@ export async function PATCH(request) {
               `;
             }
 
+            // Reserve the full new bid amount for the incoming bidder
             await tx.$executeRaw`
               UPDATE teams
               SET reserved_amount = reserved_amount + ${newBid}
