@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { ADMIN_SESSION_COOKIE_NAME, verifyAdminSessionToken } from "@/lib/adminAuth";
 
-const BID_STEP = 50000;
+const BID_STEP = 5;
 const TRANSACTION_OPTIONS = {
   maxWait: 10000,
   timeout: 20000,
@@ -119,6 +119,7 @@ async function getAuctionState(tx) {
         wallet,
         reserved_amount
       FROM teams
+      WHERE payment_status = TRUE
       ORDER BY team_name ASC
     `,
   ]);
@@ -159,6 +160,7 @@ async function getAuctionLiveAndTeams(tx) {
         wallet,
         reserved_amount
       FROM teams
+      WHERE payment_status = TRUE
       ORDER BY team_name ASC
     `,
   ]);
@@ -332,14 +334,14 @@ export async function PATCH(request) {
         const teamRows = await tx.$queryRaw`
           SELECT team_id, wallet, reserved_amount
           FROM teams
-          WHERE team_id = ${requestedTeamId}
+          WHERE team_id = ${requestedTeamId} AND payment_status = TRUE
           LIMIT 1
           FOR UPDATE
         `;
 
         const team = teamRows[0];
         if (!team) {
-          throw new Error("Team not found");
+          throw new Error("Team not found or payment is pending");
         }
 
         const teamWallet = toNumber(team.wallet);
@@ -365,6 +367,7 @@ export async function PATCH(request) {
             }
 
             if (previousHighestBidder && previousHighestBid > 0) {
+              // Release the full bid amount the old bidder had reserved
               await tx.$executeRaw`
                 UPDATE teams
                 SET reserved_amount = GREATEST(reserved_amount - ${previousHighestBid}, 0)
@@ -372,6 +375,7 @@ export async function PATCH(request) {
               `;
             }
 
+            // Reserve the full new bid amount for the incoming bidder
             await tx.$executeRaw`
               UPDATE teams
               SET reserved_amount = reserved_amount + ${newBid}
