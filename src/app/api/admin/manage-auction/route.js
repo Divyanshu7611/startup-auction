@@ -119,6 +119,7 @@ async function getAuctionState(tx) {
         wallet,
         reserved_amount
       FROM teams
+      WHERE payment_status = TRUE
       ORDER BY team_name ASC
     `,
   ]);
@@ -159,6 +160,7 @@ async function getAuctionLiveAndTeams(tx) {
         wallet,
         reserved_amount
       FROM teams
+      WHERE payment_status = TRUE
       ORDER BY team_name ASC
     `,
   ]);
@@ -332,14 +334,14 @@ export async function PATCH(request) {
         const teamRows = await tx.$queryRaw`
           SELECT team_id, wallet, reserved_amount
           FROM teams
-          WHERE team_id = ${requestedTeamId}
+          WHERE team_id = ${requestedTeamId} AND payment_status = TRUE
           LIMIT 1
           FOR UPDATE
         `;
 
         const team = teamRows[0];
         if (!team) {
-          throw new Error("Team not found");
+          throw new Error("Team not found or payment is pending");
         }
 
         const teamWallet = toNumber(team.wallet);
