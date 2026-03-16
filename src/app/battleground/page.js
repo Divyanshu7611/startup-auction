@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
-const POLL_INTERVAL_MS = 5000;
+const POLL_INTERVAL_MS = 2000; // Poll every 2 seconds (balanced speed and performance)
 
 function formatCurrency(value) {
   const numericValue = Number(value);
@@ -249,7 +249,7 @@ export default function BattlegroundPage() {
             <div className="mt-6 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-xs text-white/60">
               <span>
                 Web polling active. Last sync:{" "}
-                <span className="font-semibold text-white/80">
+                <span className="font-semibold text-white/80" suppressHydrationWarning>
                   {formatTime(lastUpdated)}
                 </span>
               </span>
@@ -312,7 +312,7 @@ export default function BattlegroundPage() {
                 Team Name / Remaining Balance
               </h2>
             </div>
-            <span className="rounded-full border border-white/10 px-4 py-1.5 text-xs text-white/60">
+            <span className="rounded-full border border-white/10 px-4 py-1.5 text-xs text-white/60" suppressHydrationWarning>
               Updated {formatTime(lastUpdated)}
             </span>
           </div>
@@ -361,7 +361,7 @@ export default function BattlegroundPage() {
               </h2>
             </div>
             <div className="flex flex-wrap items-center gap-3">
-              <span className="rounded-full border border-white/10 px-4 py-1.5 text-xs text-white/60">
+              <span className="rounded-full border border-white/10 px-4 py-1.5 text-xs text-white/60" suppressHydrationWarning>
                 Updated {formatTime(lastUpdated)}
               </span>
               <select
@@ -422,7 +422,7 @@ export default function BattlegroundPage() {
                 Which startup sold to which team
               </h2>
             </div>
-            <span className="rounded-full border border-white/10 px-4 py-1.5 text-xs text-white/60">
+            <span className="rounded-full border border-white/10 px-4 py-1.5 text-xs text-white/60" suppressHydrationWarning>
               Updated {formatTime(lastUpdated)}
             </span>
             <button

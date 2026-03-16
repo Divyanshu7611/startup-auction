@@ -47,9 +47,10 @@ export default function AdminAuctionManager() {
   });
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
+  const [isPolling, setIsPolling] = useState(false);
 
-  async function loadState() {
-    setLoading(true);
+  async function loadState(silent = false) {
+    if (!silent) setLoading(true);
     setError("");
 
     try {
@@ -63,17 +64,47 @@ export default function AdminAuctionManager() {
         throw new Error(data?.error || "Failed to load auction state");
       }
 
-      setState(data);
+      // Only update state if data has actually changed to prevent flickering
+      setState((prevState) => {
+        const hasChanged = 
+          JSON.stringify(prevState.liveAuction) !== JSON.stringify(data.liveAuction) ||
+          JSON.stringify(prevState.teams) !== JSON.stringify(data.teams) ||
+          JSON.stringify(prevState.startups) !== JSON.stringify(data.startups);
+        
+        return hasChanged ? data : prevState;
+      });
     } catch (err) {
-      setError(err.message || "Failed to load auction state");
+      if (!silent) {
+        setError(err.message || "Failed to load auction state");
+      }
     } finally {
-      setLoading(false);
+      if (!silent) setLoading(false);
     }
   }
 
   useEffect(() => {
     loadState();
   }, []);
+
+  // Separate effect for polling to avoid dependency issues
+  useEffect(() => {
+    if (!state.liveAuction) {
+      setIsPolling(false);
+      return;
+    }
+
+    setIsPolling(true);
+    
+    // Poll every 2 seconds (reduced from 1 second to reduce load)
+    const interval = setInterval(() => {
+      loadState(true);
+    }, 2000);
+    
+    return () => {
+      clearInterval(interval);
+      setIsPolling(false);
+    };
+  }, [state.liveAuction?.auction_id]); // Only re-run when auction ID changes
 
   function applyServerState(nextState) {
     setState((prev) => ({
