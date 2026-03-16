@@ -11,6 +11,32 @@ function formatAmount(value) {
   });
 }
 
+function formatCompactAmount(value) {
+  const amount = Number(value || 0);
+  const sign = amount < 0 ? "-" : "";
+  const absValue = Math.abs(amount);
+
+  if (absValue >= 10000000) {
+    return `${sign}Rs ${(absValue / 10000000).toFixed(2).replace(/\.00$/, "")} Cr`;
+  }
+
+  if (absValue >= 100000) {
+    return `${sign}Rs ${(absValue / 100000).toFixed(2).replace(/\.00$/, "")} Lakh`;
+  }
+
+  return `${sign}${formatAmount(absValue)}`;
+}
+
+function formatCroreUnit(value) {
+  const amount = Number(value || 0);
+  const sign = amount < 0 ? "-" : "";
+  const absValue = Math.abs(amount);
+  const formatted = Number.isInteger(absValue)
+    ? absValue.toString()
+    : absValue.toFixed(2).replace(/\.?0+$/, "");
+  return `${sign}Rs ${formatted} Cr`;
+}
+
 export default function AdminAuctionManager() {
   const [loading, setLoading] = useState(true);
   const [actionLoading, setActionLoading] = useState(false);
@@ -224,7 +250,7 @@ export default function AdminAuctionManager() {
               <div>
                 <p className="text-xs uppercase tracking-wide text-slate-500">Current Auction Amount</p>
                 <p className="text-lg font-semibold text-slate-900">
-                  {formatAmount(state.liveAuction.bid_amount)}
+                  {formatCroreUnit(state.liveAuction.bid_amount)}
                 </p>
               </div>
 
@@ -262,7 +288,7 @@ export default function AdminAuctionManager() {
       <div className="rounded-2xl bg-white p-5 shadow-lg ring-1 ring-slate-200 sm:p-6">
         <div className="mb-3 flex items-center justify-between">
           <h3 className="text-lg font-semibold text-slate-900">Teams ({teamCount})</h3>
-          <span className="text-xs text-slate-500">+ / - changes live bid by 50,000</span>
+          <span className="text-xs text-slate-500">+ / - changes live bid by 5 Cr</span>
         </div>
 
         {loading ? (
@@ -282,7 +308,10 @@ export default function AdminAuctionManager() {
                 >
                   <p className="text-base font-semibold text-slate-900">{team.team_name}</p>
                   <p className="mt-1 text-sm text-slate-600">
-                    Remaining: <span className="font-semibold">{formatAmount(team.remaining_amount)}</span>
+                    Remaining:{" "}
+                    <span className="font-semibold">
+                      {formatCroreUnit(team.remaining_amount)}
+                    </span>
                   </p>
 
                   <div className="mt-3 flex gap-2">
@@ -334,7 +363,7 @@ export default function AdminAuctionManager() {
                   <tr key={startup.startup_id} className="border-b border-slate-100 text-slate-700">
                     <td className="px-2 py-2 font-medium">{startup.name}</td>
                     <td className="px-2 py-2">{startup.sector}</td>
-                    <td className="px-2 py-2">{formatAmount(startup.base_price)}</td>
+                    <td className="px-2 py-2">{formatCroreUnit(startup.base_price)}</td>
                     <td className="px-2 py-2">
                       <button
                         type="button"

@@ -6,8 +6,6 @@ const DEFAULT_FORM = {
   name: "",
   sector: "",
   revenue: "",
-  growth_rate: "",
-  risk_level: "Medium",
   base_price: "",
   current_price: "",
 };
@@ -70,7 +68,11 @@ export default function AdminStartupManager() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(form),
+        body: JSON.stringify({
+          ...form,
+          growth_rate: "0-0%",
+          risk_level: "Medium",
+        }),
       });
 
       const data = await response.json();
@@ -247,32 +249,6 @@ export default function AdminStartupManager() {
           </label>
 
           <label className="block text-sm text-slate-700">
-            Growth Rate Range (%)
-            <input
-              type="text"
-              value={form.growth_rate}
-              onChange={onChange("growth_rate")}
-              className="mt-1.5 w-full rounded-lg border border-slate-300 px-3 py-2 outline-none focus:border-slate-500"
-              placeholder="e.g. 50-60%"
-              required
-            />
-          </label>
-
-          <label className="block text-sm text-slate-700">
-            Risk Level
-            <select
-              value={form.risk_level}
-              onChange={onChange("risk_level")}
-              className="mt-1.5 w-full rounded-lg border border-slate-300 px-3 py-2 outline-none focus:border-slate-500"
-              required
-            >
-              <option value="Low">Low</option>
-              <option value="Medium">Medium</option>
-              <option value="High">High</option>
-            </select>
-          </label>
-
-          <label className="block text-sm text-slate-700">
             Base Price
             <input
               type="number"
@@ -325,8 +301,6 @@ export default function AdminStartupManager() {
                   <th className="px-2 py-2">Name</th>
                   <th className="px-2 py-2">Sector</th>
                   <th className="px-2 py-2">Revenue</th>
-                  <th className="px-2 py-2">Growth</th>
-                  <th className="px-2 py-2">Risk</th>
                   <th className="px-2 py-2">Base</th>
                   <th className="px-2 py-2">Current</th>
                   <th className="px-2 py-2">Status</th>
@@ -338,8 +312,6 @@ export default function AdminStartupManager() {
                     <td className="px-2 py-2">{startup.name}</td>
                     <td className="px-2 py-2">{startup.sector}</td>
                     <td className="px-2 py-2">{startup.revenue}</td>
-                    <td className="px-2 py-2">{startup.growth_rate}</td>
-                    <td className="px-2 py-2">{startup.risk_level}</td>
                     <td className="px-2 py-2">{startup.base_price}</td>
                     <td className="px-2 py-2">{startup.current_price}</td>
                     <td className="px-2 py-2">{startup.status}</td>
