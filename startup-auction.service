@@ -1,0 +1,21 @@
+[Unit]
+Description=Startup Auction Admin Dashboard (HTTP)
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+WorkingDirectory=/path/to/startup-auction
+Environment="NODE_ENV=production"
+Environment="HOSTNAME=0.0.0.0"
+Environment="PORT=3000"
+Environment="NODE_TLS_REJECT_UNAUTHORIZED=0"
+ExecStart=/usr/bin/npm run start:http
+Restart=on-failure
+RestartSec=10
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=startup-auction
+
+[Install]
+WantedBy=multi-user.target
