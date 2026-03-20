@@ -288,7 +288,9 @@ export type teamsWhereInput = {
   payment_status?: Prisma.BoolFilter<"teams"> | boolean
   created_at?: Prisma.DateTimeFilter<"teams"> | Date | string
   captain_roll_number?: Prisma.StringNullableFilter<"teams"> | string | null
+  auctions?: Prisma.AuctionsListRelationFilter
   payments?: Prisma.PaymentsListRelationFilter
+  startups?: Prisma.StartupsListRelationFilter
 }
 
 export type teamsOrderByWithRelationInput = {
@@ -305,7 +307,9 @@ export type teamsOrderByWithRelationInput = {
   payment_status?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   captain_roll_number?: Prisma.SortOrderInput | Prisma.SortOrder
+  auctions?: Prisma.auctionsOrderByRelationAggregateInput
   payments?: Prisma.paymentsOrderByRelationAggregateInput
+  startups?: Prisma.startupsOrderByRelationAggregateInput
 }
 
 export type teamsWhereUniqueInput = Prisma.AtLeast<{
@@ -325,7 +329,9 @@ export type teamsWhereUniqueInput = Prisma.AtLeast<{
   payment_status?: Prisma.BoolFilter<"teams"> | boolean
   created_at?: Prisma.DateTimeFilter<"teams"> | Date | string
   captain_roll_number?: Prisma.StringNullableFilter<"teams"> | string | null
+  auctions?: Prisma.AuctionsListRelationFilter
   payments?: Prisma.PaymentsListRelationFilter
+  startups?: Prisma.StartupsListRelationFilter
 }, "team_id" | "captain_email" | "team_name">
 
 export type teamsOrderByWithAggregationInput = {
@@ -382,7 +388,9 @@ export type teamsCreateInput = {
   payment_status?: boolean
   created_at?: Date | string
   captain_roll_number?: string | null
+  auctions?: Prisma.auctionsCreateNestedManyWithoutTeamsInput
   payments?: Prisma.paymentsCreateNestedManyWithoutTeamsInput
+  startups?: Prisma.startupsCreateNestedManyWithoutTeamsInput
 }
 
 export type teamsUncheckedCreateInput = {
@@ -399,7 +407,9 @@ export type teamsUncheckedCreateInput = {
   payment_status?: boolean
   created_at?: Date | string
   captain_roll_number?: string | null
+  auctions?: Prisma.auctionsUncheckedCreateNestedManyWithoutTeamsInput
   payments?: Prisma.paymentsUncheckedCreateNestedManyWithoutTeamsInput
+  startups?: Prisma.startupsUncheckedCreateNestedManyWithoutTeamsInput
 }
 
 export type teamsUpdateInput = {
@@ -416,7 +426,9 @@ export type teamsUpdateInput = {
   payment_status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   captain_roll_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  auctions?: Prisma.auctionsUpdateManyWithoutTeamsNestedInput
   payments?: Prisma.paymentsUpdateManyWithoutTeamsNestedInput
+  startups?: Prisma.startupsUpdateManyWithoutTeamsNestedInput
 }
 
 export type teamsUncheckedUpdateInput = {
@@ -433,7 +445,9 @@ export type teamsUncheckedUpdateInput = {
   payment_status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   captain_roll_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  auctions?: Prisma.auctionsUncheckedUpdateManyWithoutTeamsNestedInput
   payments?: Prisma.paymentsUncheckedUpdateManyWithoutTeamsNestedInput
+  startups?: Prisma.startupsUncheckedUpdateManyWithoutTeamsNestedInput
 }
 
 export type teamsCreateManyInput = {
@@ -482,6 +496,11 @@ export type teamsUncheckedUpdateManyInput = {
   payment_status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   captain_roll_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type TeamsNullableScalarRelationFilter = {
+  is?: Prisma.teamsWhereInput | null
+  isNot?: Prisma.teamsWhereInput | null
 }
 
 export type TeamsScalarRelationFilter = {
@@ -549,6 +568,22 @@ export type teamsSumOrderByAggregateInput = {
   final_portfolio_value?: Prisma.SortOrder
 }
 
+export type teamsCreateNestedOneWithoutAuctionsInput = {
+  create?: Prisma.XOR<Prisma.teamsCreateWithoutAuctionsInput, Prisma.teamsUncheckedCreateWithoutAuctionsInput>
+  connectOrCreate?: Prisma.teamsCreateOrConnectWithoutAuctionsInput
+  connect?: Prisma.teamsWhereUniqueInput
+}
+
+export type teamsUpdateOneWithoutAuctionsNestedInput = {
+  create?: Prisma.XOR<Prisma.teamsCreateWithoutAuctionsInput, Prisma.teamsUncheckedCreateWithoutAuctionsInput>
+  connectOrCreate?: Prisma.teamsCreateOrConnectWithoutAuctionsInput
+  upsert?: Prisma.teamsUpsertWithoutAuctionsInput
+  disconnect?: Prisma.teamsWhereInput | boolean
+  delete?: Prisma.teamsWhereInput | boolean
+  connect?: Prisma.teamsWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.teamsUpdateToOneWithWhereWithoutAuctionsInput, Prisma.teamsUpdateWithoutAuctionsInput>, Prisma.teamsUncheckedUpdateWithoutAuctionsInput>
+}
+
 export type teamsCreateNestedOneWithoutPaymentsInput = {
   create?: Prisma.XOR<Prisma.teamsCreateWithoutPaymentsInput, Prisma.teamsUncheckedCreateWithoutPaymentsInput>
   connectOrCreate?: Prisma.teamsCreateOrConnectWithoutPaymentsInput
@@ -563,8 +598,112 @@ export type teamsUpdateOneRequiredWithoutPaymentsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.teamsUpdateToOneWithWhereWithoutPaymentsInput, Prisma.teamsUpdateWithoutPaymentsInput>, Prisma.teamsUncheckedUpdateWithoutPaymentsInput>
 }
 
+export type teamsCreateNestedOneWithoutStartupsInput = {
+  create?: Prisma.XOR<Prisma.teamsCreateWithoutStartupsInput, Prisma.teamsUncheckedCreateWithoutStartupsInput>
+  connectOrCreate?: Prisma.teamsCreateOrConnectWithoutStartupsInput
+  connect?: Prisma.teamsWhereUniqueInput
+}
+
+export type teamsUpdateOneWithoutStartupsNestedInput = {
+  create?: Prisma.XOR<Prisma.teamsCreateWithoutStartupsInput, Prisma.teamsUncheckedCreateWithoutStartupsInput>
+  connectOrCreate?: Prisma.teamsCreateOrConnectWithoutStartupsInput
+  upsert?: Prisma.teamsUpsertWithoutStartupsInput
+  disconnect?: Prisma.teamsWhereInput | boolean
+  delete?: Prisma.teamsWhereInput | boolean
+  connect?: Prisma.teamsWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.teamsUpdateToOneWithWhereWithoutStartupsInput, Prisma.teamsUpdateWithoutStartupsInput>, Prisma.teamsUncheckedUpdateWithoutStartupsInput>
+}
+
 export type BoolFieldUpdateOperationsInput = {
   set?: boolean
+}
+
+export type teamsCreateWithoutAuctionsInput = {
+  team_id?: bigint | number
+  captain_name: string
+  captain_email: string
+  password_hash: string
+  team_name: string
+  contact_number: string
+  team_members?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  wallet?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  reserved_amount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  final_portfolio_value?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  payment_status?: boolean
+  created_at?: Date | string
+  captain_roll_number?: string | null
+  payments?: Prisma.paymentsCreateNestedManyWithoutTeamsInput
+  startups?: Prisma.startupsCreateNestedManyWithoutTeamsInput
+}
+
+export type teamsUncheckedCreateWithoutAuctionsInput = {
+  team_id?: bigint | number
+  captain_name: string
+  captain_email: string
+  password_hash: string
+  team_name: string
+  contact_number: string
+  team_members?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  wallet?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  reserved_amount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  final_portfolio_value?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  payment_status?: boolean
+  created_at?: Date | string
+  captain_roll_number?: string | null
+  payments?: Prisma.paymentsUncheckedCreateNestedManyWithoutTeamsInput
+  startups?: Prisma.startupsUncheckedCreateNestedManyWithoutTeamsInput
+}
+
+export type teamsCreateOrConnectWithoutAuctionsInput = {
+  where: Prisma.teamsWhereUniqueInput
+  create: Prisma.XOR<Prisma.teamsCreateWithoutAuctionsInput, Prisma.teamsUncheckedCreateWithoutAuctionsInput>
+}
+
+export type teamsUpsertWithoutAuctionsInput = {
+  update: Prisma.XOR<Prisma.teamsUpdateWithoutAuctionsInput, Prisma.teamsUncheckedUpdateWithoutAuctionsInput>
+  create: Prisma.XOR<Prisma.teamsCreateWithoutAuctionsInput, Prisma.teamsUncheckedCreateWithoutAuctionsInput>
+  where?: Prisma.teamsWhereInput
+}
+
+export type teamsUpdateToOneWithWhereWithoutAuctionsInput = {
+  where?: Prisma.teamsWhereInput
+  data: Prisma.XOR<Prisma.teamsUpdateWithoutAuctionsInput, Prisma.teamsUncheckedUpdateWithoutAuctionsInput>
+}
+
+export type teamsUpdateWithoutAuctionsInput = {
+  team_id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  captain_name?: Prisma.StringFieldUpdateOperationsInput | string
+  captain_email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  team_name?: Prisma.StringFieldUpdateOperationsInput | string
+  contact_number?: Prisma.StringFieldUpdateOperationsInput | string
+  team_members?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  wallet?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  reserved_amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  final_portfolio_value?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  payment_status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  captain_roll_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  payments?: Prisma.paymentsUpdateManyWithoutTeamsNestedInput
+  startups?: Prisma.startupsUpdateManyWithoutTeamsNestedInput
+}
+
+export type teamsUncheckedUpdateWithoutAuctionsInput = {
+  team_id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  captain_name?: Prisma.StringFieldUpdateOperationsInput | string
+  captain_email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  team_name?: Prisma.StringFieldUpdateOperationsInput | string
+  contact_number?: Prisma.StringFieldUpdateOperationsInput | string
+  team_members?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  wallet?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  reserved_amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  final_portfolio_value?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  payment_status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  captain_roll_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  payments?: Prisma.paymentsUncheckedUpdateManyWithoutTeamsNestedInput
+  startups?: Prisma.startupsUncheckedUpdateManyWithoutTeamsNestedInput
 }
 
 export type teamsCreateWithoutPaymentsInput = {
@@ -581,6 +720,8 @@ export type teamsCreateWithoutPaymentsInput = {
   payment_status?: boolean
   created_at?: Date | string
   captain_roll_number?: string | null
+  auctions?: Prisma.auctionsCreateNestedManyWithoutTeamsInput
+  startups?: Prisma.startupsCreateNestedManyWithoutTeamsInput
 }
 
 export type teamsUncheckedCreateWithoutPaymentsInput = {
@@ -597,6 +738,8 @@ export type teamsUncheckedCreateWithoutPaymentsInput = {
   payment_status?: boolean
   created_at?: Date | string
   captain_roll_number?: string | null
+  auctions?: Prisma.auctionsUncheckedCreateNestedManyWithoutTeamsInput
+  startups?: Prisma.startupsUncheckedCreateNestedManyWithoutTeamsInput
 }
 
 export type teamsCreateOrConnectWithoutPaymentsInput = {
@@ -629,6 +772,8 @@ export type teamsUpdateWithoutPaymentsInput = {
   payment_status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   captain_roll_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  auctions?: Prisma.auctionsUpdateManyWithoutTeamsNestedInput
+  startups?: Prisma.startupsUpdateManyWithoutTeamsNestedInput
 }
 
 export type teamsUncheckedUpdateWithoutPaymentsInput = {
@@ -645,6 +790,96 @@ export type teamsUncheckedUpdateWithoutPaymentsInput = {
   payment_status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   captain_roll_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  auctions?: Prisma.auctionsUncheckedUpdateManyWithoutTeamsNestedInput
+  startups?: Prisma.startupsUncheckedUpdateManyWithoutTeamsNestedInput
+}
+
+export type teamsCreateWithoutStartupsInput = {
+  team_id?: bigint | number
+  captain_name: string
+  captain_email: string
+  password_hash: string
+  team_name: string
+  contact_number: string
+  team_members?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  wallet?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  reserved_amount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  final_portfolio_value?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  payment_status?: boolean
+  created_at?: Date | string
+  captain_roll_number?: string | null
+  auctions?: Prisma.auctionsCreateNestedManyWithoutTeamsInput
+  payments?: Prisma.paymentsCreateNestedManyWithoutTeamsInput
+}
+
+export type teamsUncheckedCreateWithoutStartupsInput = {
+  team_id?: bigint | number
+  captain_name: string
+  captain_email: string
+  password_hash: string
+  team_name: string
+  contact_number: string
+  team_members?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  wallet?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  reserved_amount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  final_portfolio_value?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  payment_status?: boolean
+  created_at?: Date | string
+  captain_roll_number?: string | null
+  auctions?: Prisma.auctionsUncheckedCreateNestedManyWithoutTeamsInput
+  payments?: Prisma.paymentsUncheckedCreateNestedManyWithoutTeamsInput
+}
+
+export type teamsCreateOrConnectWithoutStartupsInput = {
+  where: Prisma.teamsWhereUniqueInput
+  create: Prisma.XOR<Prisma.teamsCreateWithoutStartupsInput, Prisma.teamsUncheckedCreateWithoutStartupsInput>
+}
+
+export type teamsUpsertWithoutStartupsInput = {
+  update: Prisma.XOR<Prisma.teamsUpdateWithoutStartupsInput, Prisma.teamsUncheckedUpdateWithoutStartupsInput>
+  create: Prisma.XOR<Prisma.teamsCreateWithoutStartupsInput, Prisma.teamsUncheckedCreateWithoutStartupsInput>
+  where?: Prisma.teamsWhereInput
+}
+
+export type teamsUpdateToOneWithWhereWithoutStartupsInput = {
+  where?: Prisma.teamsWhereInput
+  data: Prisma.XOR<Prisma.teamsUpdateWithoutStartupsInput, Prisma.teamsUncheckedUpdateWithoutStartupsInput>
+}
+
+export type teamsUpdateWithoutStartupsInput = {
+  team_id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  captain_name?: Prisma.StringFieldUpdateOperationsInput | string
+  captain_email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  team_name?: Prisma.StringFieldUpdateOperationsInput | string
+  contact_number?: Prisma.StringFieldUpdateOperationsInput | string
+  team_members?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  wallet?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  reserved_amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  final_portfolio_value?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  payment_status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  captain_roll_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  auctions?: Prisma.auctionsUpdateManyWithoutTeamsNestedInput
+  payments?: Prisma.paymentsUpdateManyWithoutTeamsNestedInput
+}
+
+export type teamsUncheckedUpdateWithoutStartupsInput = {
+  team_id?: Prisma.BigIntFieldUpdateOperationsInput | bigint | number
+  captain_name?: Prisma.StringFieldUpdateOperationsInput | string
+  captain_email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  team_name?: Prisma.StringFieldUpdateOperationsInput | string
+  contact_number?: Prisma.StringFieldUpdateOperationsInput | string
+  team_members?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  wallet?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  reserved_amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  final_portfolio_value?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  payment_status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  captain_roll_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  auctions?: Prisma.auctionsUncheckedUpdateManyWithoutTeamsNestedInput
+  payments?: Prisma.paymentsUncheckedUpdateManyWithoutTeamsNestedInput
 }
 
 
@@ -653,11 +888,15 @@ export type teamsUncheckedUpdateWithoutPaymentsInput = {
  */
 
 export type TeamsCountOutputType = {
+  auctions: number
   payments: number
+  startups: number
 }
 
 export type TeamsCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  auctions?: boolean | TeamsCountOutputTypeCountAuctionsArgs
   payments?: boolean | TeamsCountOutputTypeCountPaymentsArgs
+  startups?: boolean | TeamsCountOutputTypeCountStartupsArgs
 }
 
 /**
@@ -673,8 +912,22 @@ export type TeamsCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extens
 /**
  * TeamsCountOutputType without action
  */
+export type TeamsCountOutputTypeCountAuctionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.auctionsWhereInput
+}
+
+/**
+ * TeamsCountOutputType without action
+ */
 export type TeamsCountOutputTypeCountPaymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.paymentsWhereInput
+}
+
+/**
+ * TeamsCountOutputType without action
+ */
+export type TeamsCountOutputTypeCountStartupsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.startupsWhereInput
 }
 
 
@@ -692,7 +945,9 @@ export type teamsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   payment_status?: boolean
   created_at?: boolean
   captain_roll_number?: boolean
+  auctions?: boolean | Prisma.teams$auctionsArgs<ExtArgs>
   payments?: boolean | Prisma.teams$paymentsArgs<ExtArgs>
+  startups?: boolean | Prisma.teams$startupsArgs<ExtArgs>
   _count?: boolean | Prisma.TeamsCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["teams"]>
 
@@ -746,7 +1001,9 @@ export type teamsSelectScalar = {
 
 export type teamsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"team_id" | "captain_name" | "captain_email" | "password_hash" | "team_name" | "contact_number" | "team_members" | "wallet" | "reserved_amount" | "final_portfolio_value" | "payment_status" | "created_at" | "captain_roll_number", ExtArgs["result"]["teams"]>
 export type teamsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  auctions?: boolean | Prisma.teams$auctionsArgs<ExtArgs>
   payments?: boolean | Prisma.teams$paymentsArgs<ExtArgs>
+  startups?: boolean | Prisma.teams$startupsArgs<ExtArgs>
   _count?: boolean | Prisma.TeamsCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type teamsIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -755,7 +1012,9 @@ export type teamsIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
 export type $teamsPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "teams"
   objects: {
+    auctions: Prisma.$auctionsPayload<ExtArgs>[]
     payments: Prisma.$paymentsPayload<ExtArgs>[]
+    startups: Prisma.$startupsPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     team_id: bigint
@@ -1165,7 +1424,9 @@ readonly fields: teamsFieldRefs;
  */
 export interface Prisma__teamsClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  auctions<T extends Prisma.teams$auctionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.teams$auctionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$auctionsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   payments<T extends Prisma.teams$paymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.teams$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$paymentsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  startups<T extends Prisma.teams$startupsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.teams$startupsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$startupsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1596,6 +1857,30 @@ export type teamsDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
 }
 
 /**
+ * teams.auctions
+ */
+export type teams$auctionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the auctions
+   */
+  select?: Prisma.auctionsSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the auctions
+   */
+  omit?: Prisma.auctionsOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.auctionsInclude<ExtArgs> | null
+  where?: Prisma.auctionsWhereInput
+  orderBy?: Prisma.auctionsOrderByWithRelationInput | Prisma.auctionsOrderByWithRelationInput[]
+  cursor?: Prisma.auctionsWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AuctionsScalarFieldEnum | Prisma.AuctionsScalarFieldEnum[]
+}
+
+/**
  * teams.payments
  */
 export type teams$paymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1617,6 +1902,30 @@ export type teams$paymentsArgs<ExtArgs extends runtime.Types.Extensions.Internal
   take?: number
   skip?: number
   distinct?: Prisma.PaymentsScalarFieldEnum | Prisma.PaymentsScalarFieldEnum[]
+}
+
+/**
+ * teams.startups
+ */
+export type teams$startupsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the startups
+   */
+  select?: Prisma.startupsSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the startups
+   */
+  omit?: Prisma.startupsOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.startupsInclude<ExtArgs> | null
+  where?: Prisma.startupsWhereInput
+  orderBy?: Prisma.startupsOrderByWithRelationInput | Prisma.startupsOrderByWithRelationInput[]
+  cursor?: Prisma.startupsWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.StartupsScalarFieldEnum | Prisma.StartupsScalarFieldEnum[]
 }
 
 /**

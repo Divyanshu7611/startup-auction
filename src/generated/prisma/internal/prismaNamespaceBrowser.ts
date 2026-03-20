@@ -52,7 +52,9 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   prisma_init: 'prisma_init',
+  auctions: 'auctions',
   payments: 'payments',
+  startups: 'startups',
   teams: 'teams'
 } as const
 
@@ -80,6 +82,19 @@ export const Prisma_initScalarFieldEnum = {
 export type Prisma_initScalarFieldEnum = (typeof Prisma_initScalarFieldEnum)[keyof typeof Prisma_initScalarFieldEnum]
 
 
+export const AuctionsScalarFieldEnum = {
+  auction_id: 'auction_id',
+  startup_id: 'startup_id',
+  start_time: 'start_time',
+  end_time: 'end_time',
+  highest_bid: 'highest_bid',
+  highest_bidder: 'highest_bidder',
+  bid_amount: 'bid_amount'
+} as const
+
+export type AuctionsScalarFieldEnum = (typeof AuctionsScalarFieldEnum)[keyof typeof AuctionsScalarFieldEnum]
+
+
 export const PaymentsScalarFieldEnum = {
   payment_id: 'payment_id',
   team_id: 'team_id',
@@ -91,6 +106,24 @@ export const PaymentsScalarFieldEnum = {
 } as const
 
 export type PaymentsScalarFieldEnum = (typeof PaymentsScalarFieldEnum)[keyof typeof PaymentsScalarFieldEnum]
+
+
+export const StartupsScalarFieldEnum = {
+  startup_id: 'startup_id',
+  name: 'name',
+  sector: 'sector',
+  revenue: 'revenue',
+  growth_rate: 'growth_rate',
+  risk_level: 'risk_level',
+  base_price: 'base_price',
+  current_price: 'current_price',
+  owner_team_id: 'owner_team_id',
+  status: 'status',
+  created_at: 'created_at',
+  multiplier: 'multiplier'
+} as const
+
+export type StartupsScalarFieldEnum = (typeof StartupsScalarFieldEnum)[keyof typeof StartupsScalarFieldEnum]
 
 
 export const TeamsScalarFieldEnum = {
@@ -128,20 +161,20 @@ export const NullableJsonNullValueInput = {
 export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
-export const QueryMode = {
-  default: 'default',
-  insensitive: 'insensitive'
-} as const
-
-export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
-
-
 export const NullsOrder = {
   first: 'first',
   last: 'last'
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const QueryMode = {
+  default: 'default',
+  insensitive: 'insensitive'
+} as const
+
+export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
 
 
 export const JsonNullValueFilter = {

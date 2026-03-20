@@ -9,6 +9,8 @@
  * 🟢 You can import this file directly.
  */
 export type * from './models/prisma_init.ts'
+export type * from './models/auctions.ts'
 export type * from './models/payments.ts'
+export type * from './models/startups.ts'
 export type * from './models/teams.ts'
 export type * from './commonInputTypes.ts'

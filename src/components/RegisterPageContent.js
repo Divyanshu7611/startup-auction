@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import "../app/register/register.css";
 import LoginForm from "./LoginForm";
 import RegistrationForm from "./RegistrationForm";
@@ -42,6 +43,38 @@ export default function RegisterPageContent() {
         >
           Register new team
         </button>
+      </div>
+
+      <div style={{ marginTop: '2rem', textAlign: 'center' }}>
+        <Link 
+          href="/results"
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '0.5rem',
+            padding: '0.75rem 1.5rem',
+            backgroundColor: '#4f46e5',
+            color: 'white',
+            borderRadius: '0.5rem',
+            textDecoration: 'none',
+            fontWeight: '600',
+            fontSize: '0.95rem',
+            transition: 'all 0.2s',
+            boxShadow: '0 4px 6px -1px rgba(79, 70, 229, 0.3)',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.backgroundColor = '#4338ca';
+            e.currentTarget.style.transform = 'translateY(-2px)';
+            e.currentTarget.style.boxShadow = '0 6px 8px -1px rgba(79, 70, 229, 0.4)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.backgroundColor = '#4f46e5';
+            e.currentTarget.style.transform = 'translateY(0)';
+            e.currentTarget.style.boxShadow = '0 4px 6px -1px rgba(79, 70, 229, 0.3)';
+          }}
+        >
+          🏆 View Final Results
+        </Link>
       </div>
     </div>
   );
