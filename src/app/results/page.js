@@ -22,7 +22,7 @@ function getRankBadgeColor(rank) {
 function getRankIcon(rank) {
   if (rank === 1) return "🏆";
   if (rank === 2) return "🥈";
-  // if (rank === 3) return "🥉";
+  if (rank === 3) return "🥉";
   return "🎯";
 }
 
@@ -101,17 +101,17 @@ export default function ResultsPage() {
         </div>
 
         {/* Title Card */}
-        <div className="mb-8 overflow-hidden rounded-2xl bg-white shadow-xl ring-1 ring-slate-200/60">
-          <div className="h-2 w-full bg-gradient-to-r from-indigo-500 via-violet-500 to-purple-500" />
-          <div className="p-6 sm:p-8">
-            <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+        <div className="mb-6 sm:mb-8 overflow-hidden rounded-xl sm:rounded-2xl bg-white shadow-xl ring-1 ring-slate-200/60">
+          <div className="h-1.5 sm:h-2 w-full bg-gradient-to-r from-indigo-500 via-violet-500 to-purple-500" />
+          <div className="p-4 sm:p-6 md:p-8">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-slate-900">
               🏆 Final Results & Winners
             </h1>
-            <p className="mt-2 text-slate-600">
+            <p className="mt-2 text-sm sm:text-base text-slate-600">
               Final valuations of all teams - Winners: Top 2 Teams
             </p>
-            <div className="mt-4 rounded-lg bg-indigo-50 p-4 border border-indigo-100">
-              <p className="text-sm font-medium text-indigo-900">
+            <div className="mt-3 sm:mt-4 rounded-lg bg-indigo-50 p-3 sm:p-4 border border-indigo-100">
+              <p className="text-xs sm:text-sm font-medium text-indigo-900 leading-relaxed">
                 <span className="font-semibold">Formula:</span> Final Valuation = Total Profit (only if Base Price × Multiplier &gt; Purchase Price) + 25% of Remaining Wallet
               </p>
             </div>
@@ -151,36 +151,36 @@ export default function ResultsPage() {
                   className="cursor-pointer p-5 sm:p-6"
                   onClick={() => setExpandedTeam(expandedTeam === team.team_id ? null : team.team_id)}
                 >
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="flex items-start gap-4 flex-1 min-w-0">
+                  <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                    <div className="flex items-start gap-3 sm:gap-4 flex-1 min-w-0">
                       {/* Rank Badge */}
-                      <div className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br ${getRankBadgeColor(team.rank)} shadow-lg`}>
-                        <span className="text-2xl">{getRankIcon(team.rank)}</span>
+                      <div className={`flex h-12 w-12 sm:h-14 sm:w-14 shrink-0 items-center justify-center rounded-lg sm:rounded-xl bg-gradient-to-br ${getRankBadgeColor(team.rank)} shadow-lg`}>
+                        <span className="text-xl sm:text-2xl">{getRankIcon(team.rank)}</span>
                       </div>
 
                       {/* Team Info */}
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 flex-wrap">
-                          <h2 className="text-xl font-bold text-slate-900 break-words">
+                          <h2 className="text-lg sm:text-xl font-bold text-slate-900 break-words">
                             {team.team_name}
                           </h2>
-                          <span className="inline-flex items-center rounded-full bg-indigo-100 px-3 py-1 text-xs font-semibold text-indigo-700">
+                          <span className="inline-flex items-center rounded-full bg-indigo-100 px-2.5 sm:px-3 py-0.5 sm:py-1 text-xs font-semibold text-indigo-700">
                             Rank #{team.rank}
                           </span>
                         </div>
-                        <p className="mt-1 text-sm text-slate-600">
+                        <p className="mt-1 text-xs sm:text-sm text-slate-600">
                           Captain: <span className="font-medium text-slate-800">{team.captain_name}</span>
                         </p>
-                        <div className="mt-3 flex flex-wrap gap-4 text-sm">
+                        <div className="mt-2 sm:mt-3 flex flex-wrap gap-3 sm:gap-4 text-xs sm:text-sm">
                           <div>
                             <span className="text-slate-500">Total Profit:</span>
-                            <span className="ml-2 font-semibold text-emerald-600">
+                            <span className="ml-1 sm:ml-2 font-semibold text-emerald-600">
                               {formatCrore(team.total_profit)}
                             </span>
                           </div>
                           <div>
                             <span className="text-slate-500">Wallet Bonus:</span>
-                            <span className="ml-2 font-semibold text-blue-600">
+                            <span className="ml-1 sm:ml-2 font-semibold text-blue-600">
                               {formatCrore(team.wallet_bonus)}
                             </span>
                           </div>
@@ -189,11 +189,11 @@ export default function ResultsPage() {
                     </div>
 
                     {/* Final Valuation */}
-                    <div className="text-right shrink-0">
+                    <div className="flex items-center justify-between sm:block sm:text-right shrink-0 border-t sm:border-t-0 pt-3 sm:pt-0">
                       <p className="text-xs font-medium uppercase tracking-wider text-slate-500">
                         Final Valuation
                       </p>
-                      <p className="mt-1 text-2xl font-bold text-indigo-600">
+                      <p className="text-xl sm:text-2xl font-bold text-indigo-600 sm:mt-1">
                         {formatCrore(team.final_valuation)}
                       </p>
                     </div>
